@@ -1,9 +1,10 @@
-import React from 'react';
-import Landing from './pages/Landing';
+import React from "react";
+import "./index.css";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
-    <div>
+    <div id="App">
       <Landing />
     </div>
   );
