@@ -3,8 +3,9 @@ import styled from "styled-components";
 import './index.css';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { Link } from "react-router-dom";
 
-function Landing() {
+function Login() {
   return (
     <Container>
       <Form>
@@ -17,22 +18,24 @@ function Landing() {
             label="Senha"
           ></TextField>
           <ButtonArea>
-            <Button className="button" color="primary">Esqueceu a Senha?</Button>
+            <Button className="button" color="primary">
+              <Link to="/esqueceu-senha">Esqueceu a Senha?</Link>
+            </Button>
             <Button className="button" variant="contained" color="primary" type="submit">
-              <span>Entrar</span>
+              <Link to="/feed">Entrar</Link>
             </Button>
           </ButtonArea>
         </LoginField>
         <blockquote>
           <h4>Cadastre - se</h4>
-          <p>Não está cadastrado? Realize seu cadastro agora! <a href="#">Clique aqui</a> </p>
+          <p>Não está cadastrado? Realize seu cadastro agora! <Link to="/signup">Clique aqui</Link> </p>
         </blockquote>
       </Form>
     </Container>
   );
 }
 
-export default Landing;
+export default Login;
 
 const Container = styled.div`
   display: flex;

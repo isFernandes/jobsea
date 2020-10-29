@@ -1,11 +1,11 @@
 import React from "react";
 import "./index.css";
-import Landing from "./pages/Landing";
+import Routes from "./Routes";
 
 function App() {
   return (
     <div id="App">
-      <Landing />
+      <Routes />
     </div>
   );
 }
