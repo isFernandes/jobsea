@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <Container>
-      <Form>
+      <Form action="POST" method="post">
         <LoginField>
           <h4>Entre</h4>
           <TextField type="email" label="E-mail"></TextField>
