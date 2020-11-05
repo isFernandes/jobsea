@@ -1,0 +1,13 @@
+.linking-text{
+    color: aliceblue;
+}
+
+.select{
+    width: 450px;
+    max-width: 600px;
+}
+
+.inputLabel{
+    align-self: flex-start;
+    margin-left: 80px; 
+}
