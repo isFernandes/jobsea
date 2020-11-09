@@ -30,6 +30,7 @@ const Container = styled.div`
   border: 1px solid #8ca686;
   border-radius: 10px;
   padding:0;
+  max-height: 90px;
 `;
 
 const CrewRanting = styled.div`
