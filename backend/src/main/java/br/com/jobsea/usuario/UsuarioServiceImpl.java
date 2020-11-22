@@ -2,6 +2,7 @@ package br.com.jobsea.usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario buscarUsuario(Long id) {
-		return usuarioRepo.findById(id).get();
+		Optional<Usuario> usuario = usuarioRepo.findById(id);
+		return usuario.isPresent() ? usuario.get() : null;
 	}
 
 	@Override

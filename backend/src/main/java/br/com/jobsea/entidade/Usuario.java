@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.springframework.lang.NonNull;
+
 @Entity
 public class Usuario {
 
@@ -19,12 +21,15 @@ public class Usuario {
 	private Long id;
 
 	@Column
+	@NonNull
 	private String nome;
 
 	@Column
+	@NonNull
 	private String email;
 
 	@Column
+	@NonNull
 	private String senha;
 
 	@Column
