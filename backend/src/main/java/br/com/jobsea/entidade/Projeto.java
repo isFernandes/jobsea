@@ -30,6 +30,9 @@ public class Projeto {
 	@Column
 	private String tempoEstimado;
 
+	@Column
+	private Boolean ativo = true;
+
 	public Long getId() {
 		return id;
 	}
@@ -76,6 +79,14 @@ public class Projeto {
 
 	public void setTempoEstimado(String tempoEstimado) {
 		this.tempoEstimado = tempoEstimado;
+	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 
 }

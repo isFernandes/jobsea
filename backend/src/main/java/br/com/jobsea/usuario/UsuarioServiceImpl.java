@@ -27,7 +27,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario atualizarUsuario(Usuario model) {
-		Usuario usuario = usuarioRepo.findById(model.getId()).get();
+		Optional<Usuario> usuarioOp = usuarioRepo.findById(model.getId());
+
+		if (!usuarioOp.isPresent()) {
+			return null;
+		}
+
+		Usuario usuario = usuarioOp.get();
 
 		usuario.setId(model.getId());
 		usuario.setNome(model.getNome());
