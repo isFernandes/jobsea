@@ -1,0 +1,87 @@
+.icon:hover {
+  background-color: #a8a0a0;
+  opacity: 0.96;
+  border: rgb(112, 117, 138) solid 2px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    opacity: 0.96;
+    background-color: #86d46c;
+    border: #00a652 solid 3px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+#bio-text {
+  display: flex;
+  min-width: 550px;
+  min-height: 140px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.select {
+  min-width: 550px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#label {
+  display: flex;
+  margin-top: 20px;
+  align-self: flex-start;
+}
+
+.align{
+    max-width: 550px;
+    max-height: 150px;
+    display: flex;
+    justify-content:space-between;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 700px) {
+  h4 {
+    font-size: medium;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 20px;
+  }
+  
+  #bio-text {
+    min-width: 430px;
+    min-height: 120px;
+  }
+
+  .select {
+    min-width: 350px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  #bio-text {
+    min-width: 130px;
+    min-height: 80px;
+  }
+
+  .select {
+    min-width: 120px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  h4 {
+    font-size: small;
+  }
+}
