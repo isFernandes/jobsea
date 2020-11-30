@@ -13,7 +13,11 @@ import javax.persistence.OneToMany;
 
 import org.springframework.lang.NonNull;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
+@Api(value = "Model Usuário")
 public class Usuario {
 
 	@Id
@@ -22,6 +26,7 @@ public class Usuario {
 
 	@Column
 	@NonNull
+	@ApiModelProperty(value = "Nome do usuário", required = true)
 	private String nome;
 
 	@Column
