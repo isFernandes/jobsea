@@ -1,0 +1,11 @@
+VERDE
+
+RGB: #3c7380
+TRANSPARÊNCIA: 90% (USEI TRANSPARÊNCIA NOS QUADROS E NA BARRA DE MENU MAS NOS ESCRITOS NÃO)
+
+
+BRANCO
+
+RGB: #ffffff
+
+No branco nas caixas pra colocar nome, senha etc eu usei transparência de 50%, já no botão "ENCONTRE UM JOB"  a tranparência foi de 90%
