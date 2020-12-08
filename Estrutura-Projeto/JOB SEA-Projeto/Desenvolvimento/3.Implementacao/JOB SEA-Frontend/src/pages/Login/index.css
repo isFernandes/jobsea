@@ -1,0 +1,88 @@
+@font-face {
+  font-family: DesirasNonCommercial;
+  src: url("../../assets/Fonts/desirasnoncommercial/DesirasNonCommercial.otf");
+}
+
+@font-face {
+  font-family: BlackFriday;
+  src: url("../../assets/Fonts/blackfriday/Black\ Friday.ttf");
+}
+
+h4 {
+  font-family: Helvetica;
+}
+
+p {
+  color: #ffffff;
+  font-family: DesirasNonCommercial;
+  font-size: 30px;
+}
+
+a {
+  text-decoration: none;
+  color: #339d3c;
+}
+
+.create-job {
+  background-color: #3c7380;
+  opacity: 0.9;
+  border: 0px;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-family: DesirasNonCommercial;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 28px;
+  text-align: center;
+}
+
+.search-job {
+  background-color: #ffffff;
+  opacity: 0.9;
+  border: 0px;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-family: DesirasNonCommercial;
+  font-weight: bold;
+  color: #3c7380;
+  font-size: 28px;
+  text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  p {
+    color: #ffffff;
+    font-family: DesirasNonCommercial;
+    font-size: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    flex:1;
+  }
+
+  .create-job {
+    background-color: #3c7380;
+    opacity: 0.9;
+    border: 0px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-family: DesirasNonCommercial;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .search-job {
+    background-color: #ffffff;
+    opacity: 0.9;
+    border: 0px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-family: DesirasNonCommercial;
+    font-weight: bold;
+    color: #3c7380;
+    font-size: 20px;
+    text-align: center;
+  }
+}
