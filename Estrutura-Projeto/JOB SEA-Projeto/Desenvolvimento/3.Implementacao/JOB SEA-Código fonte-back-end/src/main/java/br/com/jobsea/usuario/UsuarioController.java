@@ -34,7 +34,7 @@ public class UsuarioController {
 	}
 
 	@ApiOperation(value = "Registra um usuário.")
-	@PostMapping(value = "/", produces = "application/json", consumes = "application/json")
+	@PostMapping(value = "", produces = "application/json")
 	public Usuario saveUser(@ModelAttribute Usuario model) {
 		return usuarioServ.cadastrarUsuario(model);
 	}

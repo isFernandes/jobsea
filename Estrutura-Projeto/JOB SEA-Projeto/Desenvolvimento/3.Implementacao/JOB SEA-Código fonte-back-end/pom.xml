@@ -13,6 +13,7 @@
 	<artifactId>jobsea</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>jobsea</name>
+	<packaging>jar</packaging>
 	<description>Project JobSea</description>
 
 	<properties>
@@ -73,6 +74,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<source>15</source>
+					<target>15</target>
+					<archive>
+						<manifest>
+							<mainClass>br.com.jobsea.JobseaApplication</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

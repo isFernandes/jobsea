@@ -34,7 +34,7 @@ public class ProjetoController {
 	}
 
 	@ApiOperation(value = "Registra um projeto.")
-	@PostMapping(value = "/", produces = "application/json", consumes = "application/json")
+	@PostMapping(value = "", produces = "application/json")
 	public Projeto saveUser(@ModelAttribute Projeto model) {
 		return projetoService.cadastrarProjeto(model);
 	}
