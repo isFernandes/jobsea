@@ -1,0 +1,21 @@
+@font-face {
+    font-family: PerkyAreaDemoRegular;
+    src: url('../../assets/Fonts/perky-area-demo/PerkyAreaDemoRegular.ttf');
+ }
+
+
+ #teste{
+     font-family: PerkyAreaDemoRegular;
+     font-size: 30px;
+     text-align: center;
+     margin-right: 600px;
+ }
+
+ @media only screen and (max-width: 700px) {
+    #teste{
+        margin-right: 0;
+        font-family: PerkyAreaDemoRegular;
+        font-size: 28px;
+        text-align: center;
+    }
+  }
