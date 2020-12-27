@@ -3,14 +3,18 @@
 }
 
 .select{
-    width:400px;
-    min-width: 400px;
-    max-width: 400px;
+    display: flex;
+    flex: 1;
+    border-radius: 3px;
+    color: white;
+    background-color: #9fb8bf;
+    max-height: 55px;
+    min-width: 100%;
 }
 
 .inputLabel{
     align-self: flex-start;
-    margin-left: 80px; 
+    margin-left: 10px;
 }
 
 .back-button {
@@ -18,7 +22,7 @@
     border: 1.5px solid #ffffff;
     padding: 12px 18px;
     border-radius: 6px;
-    font-family: DesirasNonCommercial;
+    font-family: "DesirasNonCommercial";
     font-weight: bold;
     color: #ffffff;
     font-size: 20px;
@@ -44,4 +48,8 @@
       color: #ffffff;
       font-size: 40px;
       font-family: DesirasNonCommercial;
+  }
+
+  @media (max-width: 700px){
+      h4{font-size: 40px;}
   }

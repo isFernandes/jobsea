@@ -1,74 +1,35 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  fade,
-  makeStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
+import { IconProps, TextField } from "@material-ui/core";
+// import {Icon} from "@material-ui/core";
 import "./index.css";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    search: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto",
-      },
-    },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: "100%",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    inputRoot: {
-      color: "inherit",
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `${theme.spacing(0.5)}px`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
-      },
-    },
-  })
-);
+interface InputProps {
+  name?: string;
+  placeholder: string;
+  icon?: React.ComponentType<IconProps>;
+}
 
-const InputDefault: React.FC = () => {
-  const classes = useStyles();
+const InputDefault: React.FC<InputProps> = ({ icon: Icon, name, placeholder, }) => {
+  const [value, setValue] = useState("")
+
+  const handleValueChange = (value: string) => {
+    setValue(value)
+  }
   return (
-    <div className={classes.search}>
-      <InputBase
-        placeholder=""
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        inputProps={{ "aria-label": "search" }}
+    <>
+      <TextField
+        variant="outlined"
+        value={value}
+        name={name}
+        placeholder={placeholder}
+        className="input"
+        style={{ minWidth: "100%" }}
+        onChange={(e) => { handleValueChange(e.target.value)}}
       />
-      <div className={classes.searchIcon}>
-        <SearchIcon />
+      <div>
+        {Icon && <Icon />}
       </div>
-    </div>
+    </>
   );
 };
 

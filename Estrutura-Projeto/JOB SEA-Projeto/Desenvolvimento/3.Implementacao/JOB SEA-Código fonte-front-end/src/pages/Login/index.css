@@ -49,6 +49,13 @@ a {
   text-align: center;
 }
 
+.create-job:hover{
+  opacity: 0.69;
+}
+.search-job:hover{
+  opacity: 0.69;
+}
+
 @media screen and (max-width: 700px) {
   p {
     color: #ffffff;

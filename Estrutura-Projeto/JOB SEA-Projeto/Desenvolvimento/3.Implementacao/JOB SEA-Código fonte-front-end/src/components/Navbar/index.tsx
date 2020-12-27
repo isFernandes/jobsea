@@ -6,15 +6,8 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+import { Menu, MenuItem, InputBase, Typography, IconButton, Toolbar, AppBar } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
 import IconPadrao from "../../assets/HomePage/leme-rodape@72x.png";
@@ -27,6 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "black",
       fontFamily: "Arial",
     },
+    menuItem: {
+      fontSize: 14,
+      color: "crimson",
+    },
     grow: {
       flex: 1,
       display: "flex",
@@ -37,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "#3c7380",
       opacity: 0.9,
       width: "100vw",
-      display:"flex",
+      display: "flex",
       alignSelf: "flex-start"
     },
     menuButton: {
@@ -163,29 +160,22 @@ const Navbar: React.FC<PropsNavBar> = ({ title, placeholder }) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <p className={classes.paragraph}>Login</p>
+      <MenuItem className={classes.menuItem}>
+        <Link to="/" >
+          Login
+        </Link>
       </MenuItem>
-      <MenuItem>
-        <p className={classes.paragraph}>Sing up</p>
+      <MenuItem className={classes.menuItem}>
+        <Link to="/singup" >
+          Sing up
+        </Link>
       </MenuItem>
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem> */}
     </Menu>
   );
 
   return (
     <div className={classes.grow}>
-      <AppBar className={classes.appBar} position="static">
+      <AppBar className={classes.appBar} position="fixed">
         <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
           <Link to="/" style={{ color: "#fff" }}>
             <IconButton
@@ -232,16 +222,6 @@ const Navbar: React.FC<PropsNavBar> = ({ title, placeholder }) => {
                 SingUP
               </Button>
             </Link>
-            {/* <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> */}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

@@ -1,0 +1,9 @@
+.input{
+    display: flex;
+    flex: 1;
+    border-radius: 3px;
+    border: 1px solid #375f68;
+    color: white;
+    background-color: #9fb8bf;
+    max-height: 55px;
+}

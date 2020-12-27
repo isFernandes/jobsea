@@ -1,15 +1,22 @@
 .paragraph{
     font-style: normal;
+    text-align: center;
+    display: flex;
+    align-self: center;
+    font-size: 20px;
 }
 
 .input-style{
     flex: 1;
-    width: 100%;
-    max-width: 450px;
+    display: flex;
+    min-width: 380px;
 }
 
-h3{
+h1{
     font-family: Helvetica;
+    font-weight: bold;
+    color: white;
+    font-family: DesirasNonCommercial;
 }
 
 .button-text{
