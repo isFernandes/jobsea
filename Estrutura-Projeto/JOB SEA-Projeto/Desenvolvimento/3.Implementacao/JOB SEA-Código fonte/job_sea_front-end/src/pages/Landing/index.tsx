@@ -9,7 +9,7 @@ import imgBackground from "../../assets/HomePage/fundo@72x.png";
 import logotipeMain from "../../assets/HomePage/logotipo-caravela@72x.png";
 import lemeRodape from "../../assets/HomePage/leme-rodape@72x.png";
 
-function Login() {
+function Landing() {
   return (
     <Container>
       <ImageBackground src={imgBackground} />
@@ -39,7 +39,7 @@ function Login() {
   );
 }
 
-export default Login;
+export default Landing;
 
 const Container = styled.div`
   display: flex;

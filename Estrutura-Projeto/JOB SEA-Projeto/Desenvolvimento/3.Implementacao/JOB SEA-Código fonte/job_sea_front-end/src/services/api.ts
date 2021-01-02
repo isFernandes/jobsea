@@ -2,12 +2,12 @@ import axios from "axios";
 
 //BASE URL DA APLICACAO
 export const api = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "http://200.98.204.176:8080",
 });
 
 //ROTAS DE USUARIO
-export const createUser = (newUser: object) => {
-    api.post("/api/usuario/", newUser);
+export const createUser = (newUser:object) => {
+    api.post("/api/usuario/", newUser );
 }
 export const updateUser = (id: number, newData: object) => {
     api.put(`/api/usuario/${id}`, newData);
@@ -16,10 +16,12 @@ export const getUser = (id: number) => {
     api.get(`/api/usuario/${id}`);
 }
 export const deleteUser = (id: number) => {
-    api.delete(`/api/usuario/${id}`);
+    api.post(`/api/usuario/${id}`);
 }
 export const getAll = () => {
-    return api.get("/api/usuario/all");
+    return api.get("/api/usuario/all", {headers:{
+        "Access-Control-Allow-Origins": true,
+    }});
 }
 
 //ROTAS DE PROJETOS
