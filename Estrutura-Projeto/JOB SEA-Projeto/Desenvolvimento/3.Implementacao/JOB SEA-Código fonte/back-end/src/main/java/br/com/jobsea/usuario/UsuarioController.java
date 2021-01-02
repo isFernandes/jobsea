@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import jdk.jfr.ContentType;
 
 @RestController
 @RequestMapping({ "/api/usuario", "/api/usuario/" })
@@ -35,8 +37,10 @@ public class UsuarioController {
 
 	@ApiOperation(value = "Registra um usuário.")
 	@PostMapping(value = "", produces = "application/json")
-	public Usuario saveUser(@ModelAttribute Usuario model) {
-		return usuarioServ.cadastrarUsuario(model);
+	public Usuario saveUser(@ModelAttribute Usuario modelAttribute, 
+			@RequestBody Usuario modelJson) {
+
+		return usuarioServ.cadastrarUsuario(modelAttribute);
 	}
 
 	@ApiOperation(value = "Atualiza um usuário.")
