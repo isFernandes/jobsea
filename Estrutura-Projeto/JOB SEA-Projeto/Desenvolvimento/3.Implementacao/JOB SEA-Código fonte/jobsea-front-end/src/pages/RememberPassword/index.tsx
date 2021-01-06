@@ -55,10 +55,13 @@ const Form = styled.form`
   justify-content: space-around;
   align-items: center;
   padding: 15px;
-  margin: 0 10rem 0 10rem;
   opacity: 0.95;
   max-width: 700px;
   border-radius: 4px;
+  @media(max-width:650px){
+    max-width: 85%;
+    padding:8px;
+  }
 `;
 
 const ImageBackground = styled.img`
@@ -69,7 +72,7 @@ const ImageBackground = styled.img`
 `;
 
 const ButtonArea = styled.div`
-  margin: 2rem 8px 8px 8px;
+  margin: 2em 8px 8px 8px;
   display: flex;
   max-width: 350px;
   flex-direction: row;

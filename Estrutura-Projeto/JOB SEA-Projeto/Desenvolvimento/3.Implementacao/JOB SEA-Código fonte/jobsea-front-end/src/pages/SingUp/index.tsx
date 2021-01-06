@@ -120,12 +120,14 @@ margin-top: 70px;
   flex: 5;
   flex-direction: column;
   display: flex;
-  width: 565px;
   align-items: center;
   background-color: #3c7380;
   z-index: 1;
   opacity: 0.90;
   padding: 0 10px;
+  @media(min-width: 680px){
+    width:565px;
+  }
 `;
 
 const ImageBackground = styled.img`
@@ -133,6 +135,7 @@ const ImageBackground = styled.img`
   z-index: 0;
   height: 100vh;
   width: 100vw;
+  object-fit: cover;
 `;
 
 const ButtonArea = styled.div`

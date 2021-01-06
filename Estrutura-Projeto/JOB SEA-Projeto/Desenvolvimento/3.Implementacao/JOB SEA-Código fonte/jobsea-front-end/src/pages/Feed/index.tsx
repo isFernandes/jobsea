@@ -12,10 +12,6 @@ function Feed() {
         <MainFeed>
           <Crew />
           <Crew />
-          <Crew />
-          <Crew />
-          <Crew />
-          <Crew />
         </MainFeed>
         <Mural></Mural>
       </Content>
@@ -35,7 +31,8 @@ const Content = styled.div`
   flex-direction: row;
   flex: 1;
   height:100%;
-  margin-top:70px;
+  margin-top:75px;
+  background: white;
 `;
 
 
@@ -51,7 +48,7 @@ const MainFeed = styled.div`
 `;
 
 const Mural = styled.div`
-margin-top:80px;
+  margin-top:80px;
   background-color: black;
   flex: 1;
   max-height: 200px;

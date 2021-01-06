@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "row",
     },
     appBar: {
+      left: 0,
       backgroundColor: "#3c7380",
       opacity: 0.9,
       width: "100vw",
@@ -45,8 +46,8 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       width: 285,
       display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "flex",
+      [theme.breakpoints.up("xs")]: {
+        display: "none",
       },
     },
     search: {

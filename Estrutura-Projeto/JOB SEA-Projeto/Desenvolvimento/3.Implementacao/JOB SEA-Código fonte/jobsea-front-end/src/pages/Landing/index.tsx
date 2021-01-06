@@ -47,7 +47,7 @@ const Container = styled.div`
   align-items: center;
   flex: 1;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-repeat: no-repeat, repeat;
   background-color: #cccccc;
 `;
@@ -57,6 +57,7 @@ const ImageBackground = styled.img`
   z-index: 0;
   height: 100%;
   width: 100%;
+  object-fit: cover;
 `;
 
  const Leme = styled.img`
@@ -81,10 +82,16 @@ const ButtonArea = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  min-width: 80%;
+  width: 80%;
   align-self: center;
   padding: 5px;
   flex:1;
+  @media(max-width: 700px){
+    flex-direction:column;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Logo = styled.img`
