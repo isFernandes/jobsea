@@ -1,29 +1,85 @@
 import React from "react";
 import styled from "styled-components";
 
-import "./index.css";
+function Crew() {
 
-const Crew: React.FC = () => {
   return (
     <Container>
-      <h3>Titulo do Projeto</h3>
-      <p>informacoes do projeto</p>
+      <Content>
+          <Title>
+            Nome do projeto
+        </Title>
+          <MainInfo >
+            informacao principal
+        </MainInfo>
+          <DetailsInfo >
+            detalhes do projeto
+        </DetailsInfo>
+          <OwnerInfo >
+            Cliente - nome do owner etc
+        </OwnerInfo>
+      </Content>
     </Container>
   );
-};
+}
 
 export default Crew;
 
 const Container = styled.div`
-  margin-top: 25px;
-  background-color: #9fb8bf;
+  margin-top:25px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid inherit;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: 0.5px solid #d2dbdd;
+  box-shadow: 3px 4px 4px #c7c4c4;
   padding:0;
   height: 200px;
+  width: 600px;
+  align-self: center;
+  border-radius: 3px;
+  padding: 0 0 0 10px;
+`;
+const Content = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  border: 1px solid inherit;
+  flex:1;
+  flex-direction:column;
+  align-self:center;
+`;
+
+const Title = styled.h3`
+    display: flex;
+    font-weight:bold;
+    align-self: flex-start;
+    font-family: DesirasNonCommercial;
+    color: #3c7380;
+`;
+
+const MainInfo = styled.p`
+    color: black;
+    font-family: DesirasNonCommercial;
+    font-size: 12px;
+    display: flex;
+    align-self: flex-start;
+    letter-spacing: 1.25px;
+    `;
+const DetailsInfo = styled.p`
+    color: black;
+    font-family: DesirasNonCommercial;
+    font-size: 12px;
+    display: flex;
+    align-self: flex-start;
+    letter-spacing: 1.25px;
+    `;
+const OwnerInfo = styled.p`
+    color: black;
+    font-family: DesirasNonCommercial;
+    font-size: 12px;
+    display: flex;
+    align-self: flex-start;
+    letter-spacing: 1.25px;
 `;
 
 // const CrewRanting = styled.div`

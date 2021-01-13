@@ -1,9 +1,9 @@
 .paragraph{
-    font-style: normal;
-    text-align: center;
-    display: flex;
-    align-self: center;
+    font-family: DesirasNonCommercial;
+    font-weight: bold;
+    color: #ffffff;
     font-size: 20px;
+    text-align: center;
 }
 
 .input-style{

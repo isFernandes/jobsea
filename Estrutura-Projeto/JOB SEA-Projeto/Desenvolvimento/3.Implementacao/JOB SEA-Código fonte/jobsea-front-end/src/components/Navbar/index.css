@@ -3,7 +3,10 @@
     src: url('../../assets/Fonts/perky-area-demo/PerkyAreaDemoRegular.ttf');
  }
 
-
+#menu-mobile{
+    max-height: 70px;
+    max-width: 0px;
+}
  #teste{
      font-family: PerkyAreaDemoRegular;
      font-size: 30px;

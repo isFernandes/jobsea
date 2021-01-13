@@ -38,58 +38,60 @@ function SingUp() {
   }
 
   return (
-    <Container>
-      <Navbar placeholder="Busque um freelancer ..." title="JOB SEA" />
-      <ImageBackground src={imgBack} />
-      <Content>
-        <h4>CADASTRE-SE</h4>
-        <Form onSubmit={createUser} >
-          <InputDefault name="nome" placeholder="Nome" newValue={changeName} />
-          <InputDefault name="sobrenome" placeholder="Sobrenome" newValue={makeNothing} />
-          <InputDefault name="email" placeholder="E-Mail" newValue={changeEmail} />
-          <InputDefault name="senha" placeholder="Senha" newValue={changeSenha} />
-          <InputDefault name="confirmeSenha" placeholder="Confirme a Senha" newValue={makeNothing} />
-          <InputDefault name="Data" placeholder="Data de Nascimento" newValue={makeNothing} />
-          <div style={{ display: "flex", flex: 1, maxHeight: "60px", flexDirection: "column", minWidth: "100%" }}>
-            <InputLabel id="select-label" className="inputLabel">
-              Função
-         </InputLabel>
-            <Select
-              className="select"
-              labelId="select-label"
-              id="simple-select"
-            >
-              <MenuItem value="" disabled>
+    <>
+      <Navbar route="singup" placeholder="Busque um freelancer ..." title="JOB SEA" />
+      <Container>
+        <ImageBackground src={imgBack} />
+        <Content>
+          <h4>CADASTRE-SE</h4>
+          <Form onSubmit={createUser} >
+            <InputDefault name="nome" placeholder="Nome" newValue={changeName} />
+            <InputDefault name="sobrenome" placeholder="Sobrenome" newValue={makeNothing} />
+            <InputDefault name="email" placeholder="E-Mail" newValue={changeEmail} />
+            <InputDefault name="senha" placeholder="Senha" newValue={changeSenha} />
+            <InputDefault name="confirmeSenha" placeholder="Confirme a Senha" newValue={makeNothing} />
+            <InputDefault name="Data" placeholder="Data de Nascimento" newValue={makeNothing} />
+            <div style={{ display: "flex", flex: 1, maxHeight: "60px", flexDirection: "column", minWidth: "100%" }}>
+              <InputLabel id="select-label" className="inputLabel">
                 Função
+         </InputLabel>
+              <Select
+                className="select"
+                labelId="select-label"
+                id="simple-select"
+              >
+                <MenuItem value="" disabled>
+                  Função
             </MenuItem>
-              <MenuItem value={1}>Realizar projetos</MenuItem>
-              <MenuItem value={2}>Publicar projetos</MenuItem>
-              <MenuItem value={3}>Realizar e publicar projetos</MenuItem>
-            </Select>
-          </div>
-          <ButtonArea>
-            <button
-              className="back-button"
-              color="primary"
-            >
-              <Link className="linking-text" to="/">
-                Voltar
+                <MenuItem value={1}>Realizar projetos</MenuItem>
+                <MenuItem value={2}>Publicar projetos</MenuItem>
+                <MenuItem value={3}>Realizar e publicar projetos</MenuItem>
+              </Select>
+            </div>
+            <ButtonArea>
+              <button
+                className="back-button"
+                color="primary"
+              >
+                <Link className="linking-text" to="/">
+                  Voltar
              </Link>
-            </button>
-            <button
-              className="done-button"
-              color="primary"
-              type="submit"
-              onClick={createUser}
-            >
-              <Link style={{ color: "#3c7380", fontWeight: "bold" }} to="/feed">
-                Pronto
+              </button>
+              <button
+                className="done-button"
+                color="primary"
+                type="submit"
+                onClick={createUser}
+              >
+                <Link style={{ color: "#3c7380", fontWeight: "bold" }} to="/feed">
+                  Pronto
              </Link>
-            </button>
-          </ButtonArea>
-        </Form>
-      </Content>
-    </Container>
+              </button>
+            </ButtonArea>
+          </Form>
+        </Content>
+      </Container>
+    </>
   );
 }
 
@@ -116,7 +118,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-margin-top: 70px;
+margin-top: 80px;
   flex: 5;
   flex-direction: column;
   display: flex;

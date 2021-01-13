@@ -7,35 +7,58 @@ import "./index.css";
 import Navbar from "../../components/Navbar";
 import imgBackground from "../../assets/HomePage/fundo@72x.png";
 import logotipeMain from "../../assets/HomePage/logotipo-caravela@72x.png";
-import lemeRodape from "../../assets/HomePage/leme-rodape@72x.png";
+import { Button } from "@material-ui/core";
+// import lemeRodape from "../../assets/HomePage/leme-rodape@72x.png";
 
 function Landing() {
   return (
-    <Container>
-      <ImageBackground src={imgBackground} />
-      <Navbar placeholder="Busque um freelancer ..." title="J O B S E A" />
-      <LoginField>
-        <Logo src={logotipeMain} />
-      <ButtonArea>
-        <button className="create-job" >
-          <Link style={{color: '#fff'}} className="linking-button" to="/esqueceu-senha">
-            PUBLIQUE UM JOB
+    <>
+      <Navbar placeholder="Busque um freelancer ..." route=" " title="J O B S E A" >
+        <Children>
+          <Link to="/">
+            <Button variant="text" style={{ color: "white" }}>
+              LOGIN
+              </Button>
           </Link>
-        </button>
-        
-        <button
-          className="search-job"
-        >
-          <Link style={{color:'#3c7380'}} className="linking-button" to="/feed">
-            ENCONTRE UM JOB
+          <Link to="/singup">
+            <Button
+              variant="outlined"
+              style={{
+                color: "white",
+                borderColor: "white",
+                display: "flex",
+                fontWeight: "bold"
+              }}
+            >
+              Cadastre-se
+              </Button>
           </Link>
-        </button>
-      </ButtonArea>
-      <p>ENCONTRE SEU JOB NESSE MAR DE OPORTUNIDADES . . .</p>
-      <Leme className="leme-icon" src={lemeRodape} />
-      </LoginField>
-      
-    </Container>
+        </Children>
+      </Navbar>
+      <Container>
+        <ImageBackground src={imgBackground} />
+        <LoginField>
+          <Logo src={logotipeMain} />
+          <ButtonArea>
+            <button className="create-job" >
+              <Link style={{ color: '#fff' }} className="linking-button" to="/esqueceu-senha">
+                PUBLIQUE UM JOB
+          </Link>
+            </button>
+
+            <button
+              className="search-job"
+            >
+              <Link style={{ color: '#3c7380' }} className="linking-button" to="/feed">
+                ENCONTRE UM JOB
+          </Link>
+            </button>
+          </ButtonArea>
+          <FooterText>ENCONTRE SEU JOB NESSE MAR DE OPORTUNIDADES . . .</FooterText>
+        </LoginField>
+
+      </Container>
+    </>
   );
 }
 
@@ -60,13 +83,6 @@ const ImageBackground = styled.img`
   object-fit: cover;
 `;
 
- const Leme = styled.img`
-   width: 60px;
-   height: 60px;
-   display: flex;
-   align-self: center;
-   margin-bottom: 10px;
- `;
 
 const LoginField = styled.div`
   display: flex;
@@ -74,6 +90,7 @@ const LoginField = styled.div`
   flex: 1;
   justify-content: space-between;
   z-index: 1;
+  margin: 80px 0 0 0; 
 `;
 
 const ButtonArea = styled.div`
@@ -82,22 +99,44 @@ const ButtonArea = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
+  min-width: 100%;
   align-self: center;
   padding: 5px;
   flex:1;
   @media(max-width: 700px){
     flex-direction:column;
-    width: 40%;
+    min-width: 30%;
+    max-width:50%;
     justify-content: center;
     align-items: center;
   }
-`;
+  `;
 
 const Logo = styled.img`
   margin-top: 15px;
-  width: 379px;
+  position: relative;
   height: 350px;
   display: flex;
   align-self: center;
+  @media(max-width: 700px){
+    height: 280px;
+    margin-top: 0;
+  }
+`;
+
+const FooterText = styled.p`
+      font-family: DesirasNonCommercial;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing:1.5px;
+    word-wrap: break-word;
+`;
+const Children = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  @media(max-width: 1000px){
+    flex-direction: column;
+  }
 `;

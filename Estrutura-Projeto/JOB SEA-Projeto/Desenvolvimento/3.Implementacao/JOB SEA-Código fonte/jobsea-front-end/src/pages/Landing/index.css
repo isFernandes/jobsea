@@ -83,6 +83,8 @@ a {
     color: #ffffff;
     font-size: 20px;
     text-align: center;
+    align-self: center;
+    margin: 0 auto;
   }
 
   .search-job {

@@ -1,246 +1,237 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  fade,
-  makeStyles,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
-import { Menu, MenuItem, InputBase, Typography, IconButton, Toolbar, AppBar } from "@material-ui/core";
+import { IconButton, Menu, InputBase } from "@material-ui/core";
+// import MenuItem from "@material-ui/core/MenuItem";
+import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import MoreIcon from "@material-ui/icons/MoreVert";
 import styled from "styled-components";
-
 
 import IconPadrao from "../../assets/HomePage/leme-rodape@72x.png";
 import "./index.css";
-import { Button } from "@material-ui/core";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paragraph: {
-      color: "black",
-      fontFamily: "Arial",
-    },
-    menuItem: {
-      fontSize: 14,
-      color: "crimson",
-    },
-    grow: {
-      flex: 1,
-      display: "flex",
-      maxHeight: 70,
-      flexDirection: "row",
-    },
-    appBar: {
-      left: 0,
-      backgroundColor: "#3c7380",
-      opacity: 0.9,
-      width: "100vw",
-      display: "flex",
-      alignSelf: "flex-start"
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      width: 285,
-      display: "flex",
-      [theme.breakpoints.up("xs")]: {
-        display: "none",
-      },
-    },
-    search: {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-      "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.35),
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto",
-      },
-    },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: "100%",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    inputRoot: {
-      color: "inherit",
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `${theme.spacing(0.5)}px`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: "20ch",
-      },
-    },
-    sectionDesktop: {
-      display: "none",
-      [theme.breakpoints.up("lg")]: {
-        display: "flex",
-      },
-    },
-    sectionMobile: {
-      display: "flex",
-      [theme.breakpoints.up("md")]: {
-        display: "none",
-      },
-    },
-  })
-);
 
 interface PropsNavBar {
   title: string;
   placeholder: string;
+  route: string;
 }
 
-const Navbar: React.FC<PropsNavBar> = ({ title, placeholder }) => {
-  const classes = useStyles();
+const Navbar: React.FC<PropsNavBar> = ({ title, placeholder, route, children }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl,
-  ] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState(false);
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
+    setOpen(false)
   };
 
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setOpen(true)
   };
 
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem className={classes.menuItem}>
-        <Link to="/" >
-          Login
-        </Link>
-      </MenuItem>
-      <MenuItem className={classes.menuItem}>
-        <Link to="/singup" >
-          Sing up
-        </Link>
-      </MenuItem>
-    </Menu>
-  );
+  const ITEM_HEIGHT = 48;
 
   return (
-    <div className={classes.grow}>
-      <AppBar className={classes.appBar} position="fixed">
-        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-          <Link to="/" style={{ color: "#fff" }}>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-            >
-              <Icon src={IconPadrao} style={{ height: 48 }} />
-            </IconButton>
-          </Link>
-          <Typography id="teste" className={classes.title} variant="h6" noWrap>
-            {title}
-          </Typography>
-          <div className={classes.search}>
+    <Container>
+      <Section style={{ display: "flex", flex: 0.7 }}>
+        <Title>
+          <TextPage href={`/${route}`}>
+            <ImgLogo src={IconPadrao} />
+          </TextPage>
+          <TitleNavbar href="/">{title}</TitleNavbar>
+        </Title>
+      </Section>
+      <Section>
+        <Pages>
+          <SearchInput>
             <InputBase
               placeholder={placeholder}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
               inputProps={{ "aria-label": "search" }}
             />
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+            <div >
+              <SearchIcon style={{ color: "#C0C0C0" }} />
             </div>
-          </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <Link to="/">
-              <Button variant="text" style={{ color: "white" }}>
-                LOGIN
-              </Button>
-            </Link>
-            <Link to="/singup">
-              <Button
-                variant="outlined"
-                style={{
-                  color: "white",
-                  borderColor: "white",
+          </SearchInput>
+          <Options >
+            {children}
+          </Options>
+          <ResponsiveMenu > <>
+            <IconButton
+              style={{
+                display: "flex",
+                alignSelf: "flex-end",
+                border: "10px",
+                borderColor: "#fff",
+              }}
+              aria-label="more"
+              aria-controls="long-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <MenuIcon style={{ color: "#fff" }} fontSize="large" />
+            </IconButton>
+            <Menu
+              id="long-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
                   display: "flex",
+                  flexDirection: "column",
+                  backgroundColor: "#9fb8bf",
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "15ch",
+                },
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  lineHeight: "1.75",
                 }}
               >
-                SingUP
-              </Button>
-            </Link>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
+                {children}
+              </div>
+            </Menu>
+          </></ResponsiveMenu>
+        </Pages>
+      </Section>
+    </Container>
   );
 };
 
 export default Navbar;
 
-const Icon = styled.img``;
+export const Container = styled.header`
+  background-color: #3c7380;
+  margin: 0 0 15px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 0;
+  width: 100%;
+  max-height: 70px;
+  position:fixed;
+  align-self: flex-start;
+  z-index: 5;
+  opacity: .9;
+  @media (max-width: 360px){
+    width: 360px;
+  }
+`;
+
+export const Title = styled.div`
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  align-self: center;
+`;
+
+export const ImgLogo = styled.img`
+  width:${(props) => props.width};
+  height: ${(props) => props.height};
+  margin-right:10px;
+  @media(max-width: 600px){
+  }
+`;
+
+export const Pages = styled.div`
+  display: flex;
+  flex-direction: row;
+  color: #ffff;
+  justify-content: space-evenly;
+  width: 80%;
+  text-align: center;
+  font-size:12px;
+  font-family: 'Poppins', Verdana;
+  align-items: center;
+  @media (max-width: 900px){
+    justify-content: flex-end;
+  }
+`;
+
+export const TextPage = styled.a`
+  color: #fff;
+  text-align: center;
+  font-size:12px;
+  font-family: 'Poppins', Verdana;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  @media (max-width: 900px){
+    margin: 0 5px;
+  }
+`;
+export const TitleNavbar = styled.a`
+  color: #fff;
+  text-align: center;
+  font-size:24px;
+  font-family: PerkyAreaDemoRegular, Verdana;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  @media(max-width: 900px){
+    display: none;
+  } 
+`;
+
+export const ButtonSignUp = styled.div`
+  border: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 90px;
+  height: 30px;
+  width: 158px;
+  background-color: #2262fa;
+  color: #fff;
+  font-family: "Poppins", Verdana;
+  box-shadow: 0px 3px #00e7f7;
+  :hover {
+    opacity: 0.87;
+  }
+`;
+
+export const Section = styled.section`
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+`;
+
+export const Options = styled.nav`
+ display: flex;
+  flex-direction: row;
+  color: #ffff;
+  flex:1;
+  text-align: center;
+  font-size:12px;
+  max-width: 60%;
+  font-family: 'Poppins', Verdana;
+  align-items: center;
+  @media (max-width: 1001px){
+    display: none;
+    width:100%;
+  }
+`;
+const SearchInput = styled.div`
+  display: flex;
+  background-color: #fff; 
+  justify-content: center; 
+  align-items: center;
+  border-radius: 6px;
+  padding:5px;
+`;
+
+
+export const ResponsiveMenu = styled.nav`
+display: flex;
+  @media (min-width: 1000px){
+    display: none;
+    align-self: flex-end;
+    width:100%;
+  }
+`;

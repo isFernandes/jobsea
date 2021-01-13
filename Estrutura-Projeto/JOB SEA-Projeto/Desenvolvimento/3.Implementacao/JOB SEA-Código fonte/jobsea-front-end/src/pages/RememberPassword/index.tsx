@@ -44,6 +44,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
+  height: 100%;
+   width: 100%;
+   align-self: center;
   `;
 
 const Form = styled.form`
@@ -61,6 +64,8 @@ const Form = styled.form`
   @media(max-width:650px){
     max-width: 85%;
     padding:8px;
+    align-self: center;
+    justify-self: center;
   }
 `;
 

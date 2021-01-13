@@ -3,7 +3,7 @@ import React, { FormEvent, useState } from "react";
 import styled from "styled-components";
 //imports material icons
 import EditIcon from '@material-ui/icons/Edit';
-import { Input, InputLabel, MenuItem,  Select, Chip } from "@material-ui/core";//extern archives
+import { Input, InputLabel, MenuItem, Select, Chip } from "@material-ui/core";//extern archives
 import "./index.css";
 import avatarFake from "../../assets/Profile/defaultAvatar@72x.png";
 import imgBackground from "../../assets/HomePage/fundo@72x.png";
@@ -83,87 +83,88 @@ const Profile: React.FC = () => {
     setSofts(event.target.value as string[]);
   };
 
-  const handleDataSubmit = (e: FormEvent)=>{
+  const handleDataSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     console.log(bio);
   }
-  const changeBio = (bio: string)=>{
+  const changeBio = (bio: string) => {
     setBio(bio);
   }
 
   return (
-
-    <Container>
-      <Navbar placeholder="Busque um freelancer ..." title="Dashboard" />
-      <ImageBackground src={imgBackground} />
-      <Content onSubmit={handleDataSubmit}>
-        <Header>
-          <Avatar src={avatarFake} />
-          <Icon className="icon" onClick={() => editImage()}>
-            <EditIcon fontSize="small" />
-          </Icon>
-        </Header>
-        <UserData>
-          nome_Usuario, equipes_participantes, techs_Conhecidas
+    <>
+      <Navbar route="profile" placeholder="Busque um freelancer ..." title="Dashboard" />
+      <Container>
+        <ImageBackground src={imgBackground} />
+        <Content onSubmit={handleDataSubmit}>
+          <Header>
+            <Avatar src={avatarFake} />
+            <Icon className="icon" onClick={() => editImage()}>
+              <EditIcon fontSize="small" />
+            </Icon>
+          </Header>
+          <UserData>
+            nome_Usuario, equipes_participantes, techs_Conhecidas
           </UserData>
 
-        <div className="align">
-          <InputLabel id="label">Habilidades Extras</InputLabel>
-          <Select
-            labelId="demo-mutiple-chip-label"
-            id="select"
-            multiple
-            value={softs}
-            onChange={handleSelectSofts}
-            input={<Input id="select-multiple-chip" />}
-            renderValue={(selected) => (
-              <div style={{ display: "flex", flexWrap: 'wrap' }}>
-                {(selected as string[]).map((value) => (
-                  <Chip key={value} label={value} style={{ margin: "2px" }} />
-                ))}
-              </div>
-            )}
-            MenuProps={MenuProps}
-          >
-            {SoftFakeData.map((soft) => (
-              <MenuItem key={soft} value={soft} >
-                {soft}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
+           <div className="align ">
+            <InputLabel id="label">Habilidades Extras</InputLabel>
+            <Select
+              labelId="demo-mutiple-chip-label"
+              id="select"
+              multiple
+              value={softs}
+              onChange={handleSelectSofts}
+              input={<Input id="select-multiple-chip" />}
+              renderValue={(selected) => (
+                <div style={{ display: "flex", flexWrap: 'wrap' }}>
+                  {(selected as string[]).map((value) => (
+                    <Chip key={value} label={value} style={{ margin: "2px" }} />
+                  ))}
+                </div>
+              )}
+              MenuProps={MenuProps}
+            >
+              {SoftFakeData.map((soft) => (
+                <MenuItem key={soft} value={soft} >
+                  {soft}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
 
-        <div className="align">
-          <InputLabel id="label">Habilidades Técnicas</InputLabel>
-          <Select
-            labelId="demo-mutiple-chip-label"
-            id="select"
-            multiple
-            value={techs}
-            onChange={handleSelectTechs}
-            input={<Input id="select-multiple-chip" />}
-            renderValue={(selected) => (
-              <div style={{ display: "flex", flexWrap: 'wrap' }}>
-                {(selected as string[]).map((value) => (
-                  <Chip key={value} label={value} />
-                ))}
-              </div>
-            )}
-            MenuProps={MenuProps}
-          >
-            {techsFakeData.map((tech) => (
-              <MenuItem key={tech} value={tech} >
-                {tech}
-              </MenuItem>
-            ))}
-          </Select>
-        </div>
-        <InputDefault name="bio" placeholder="Bio" newValue={changeBio}/>
-        <Button className="button">Salvar Dados</Button>
-      </Content>
-    </Container>
+          <div className="align">
+            <InputLabel id="label">Habilidades Técnicas</InputLabel>
+            <Select
+              labelId="demo-mutiple-chip-label"
+              id="select"
+              multiple
+              value={techs}
+              onChange={handleSelectTechs}
+              input={<Input id="select-multiple-chip" />}
+              renderValue={(selected) => (
+                <div style={{ display: "flex", flexWrap: 'wrap' }}>
+                  {(selected as string[]).map((value) => (
+                    <Chip key={value} label={value} />
+                  ))}
+                </div>
+              )}
+              MenuProps={MenuProps}
+            >
+              {techsFakeData.map((tech) => (
+                <MenuItem key={tech} value={tech} >
+                  {tech}
+                </MenuItem>
+              ))}
+            </Select>
+          </div> 
+          <InputDefault name="bio" placeholder="Bio" newValue={changeBio} />
+          <Button className="button">Salvar Dados</Button>
+        </Content>
+      </Container>
 
+    </>
   );
 };
 
@@ -200,8 +201,10 @@ const Content = styled.div`
   justify-self:center;
   margin-top: 30px;
   @media (max-width: 700px){
-    margin-right: 15%;
-    margin-top: 70px;
+    margin-left: 30%;
+    max-width: 80%;
+    padding: 0 25px;
+    
   }
 `;
 

@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar';
 function Feed() {
   return (
     <Container>
-      <Navbar placeholder="Busque um freelancer ..." title="JOB SEA" />
+      <Navbar route="feed" placeholder="Busque um freelancer ..." title="JOB SEA" />
       <Content>
         <Filtros></Filtros>
         <MainFeed>
@@ -32,13 +32,14 @@ const Content = styled.div`
   flex: 1;
   height:100%;
   margin-top:75px;
-  background: white;
+  background: #eaf1f3;
 `;
 
 
 const Filtros = styled.div`
-  background-color: green;
   flex: 1;
+  border: 0.5px solid #d2dbdd;
+  box-shadow: 3px 4px 4px #c7c4c4;
 `;
 
 const MainFeed = styled.div`

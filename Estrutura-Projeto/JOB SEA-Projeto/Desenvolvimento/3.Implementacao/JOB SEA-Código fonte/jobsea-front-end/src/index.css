@@ -6,3 +6,11 @@
     justify-content: center;
     align-items: center;
 }
+
+p{
+    font-family: DesirasNonCommercial;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+}
