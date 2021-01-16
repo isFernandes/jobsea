@@ -108,7 +108,7 @@ const Profile: React.FC = () => {
             nome_Usuario, equipes_participantes, techs_Conhecidas
           </UserData>
 
-           <div className="align ">
+          <div className="align ">
             <InputLabel id="label">Habilidades Extras</InputLabel>
             <Select
               labelId="demo-mutiple-chip-label"
@@ -158,8 +158,8 @@ const Profile: React.FC = () => {
                 </MenuItem>
               ))}
             </Select>
-          </div> 
-          <InputDefault name="bio" placeholder="Bio" newValue={changeBio} />
+          </div>
+          <InputDefault style={{width: "450px", height:"80px"}} name="bio" placeholder="Bio" newValue={changeBio} />
           <Button className="button">Salvar Dados</Button>
         </Content>
       </Container>
@@ -188,13 +188,13 @@ const ImageBackground = styled.img`
 `;
 
 const Content = styled.div`
+max-width:40%;
   display: flex;
   background-color: #3c7380;
   opacity: 0.9;
   flex:1;
   align-self: center;
   padding: 25px;
-  margin-right: 30%;
   flex-direction: column;
   justify-content: center;
   align-items: center;

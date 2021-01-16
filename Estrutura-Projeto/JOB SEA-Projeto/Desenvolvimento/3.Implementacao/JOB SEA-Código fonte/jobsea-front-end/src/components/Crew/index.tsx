@@ -1,22 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 
-function Crew() {
+interface CrewsProp{
+  projectTitle: string,
+  projectInfo: string,
+  projectDetails: string,
+  projectOwner: string,
+
+}
+
+const Crew:React.FC<CrewsProp> = (CrewData)=> {
 
   return (
     <Container>
       <Content>
-          <Title>
-            Nome do projeto
+        <Title>
+          {CrewData.projectTitle}
         </Title>
-          <MainInfo >
-            informacao principal
+        <MainInfo >
+          {CrewData.projectInfo}
         </MainInfo>
-          <DetailsInfo >
-            detalhes do projeto
+        <DetailsInfo >
+          {CrewData.projectDetails} 
         </DetailsInfo>
-          <OwnerInfo >
-            Cliente - nome do owner etc
+        <OwnerInfo >
+          Cliente - {CrewData.projectOwner}
         </OwnerInfo>
       </Content>
     </Container>
@@ -40,6 +48,7 @@ const Container = styled.div`
   padding: 0 0 0 10px;
 `;
 const Content = styled.div`
+padding:0 15px;
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
@@ -55,6 +64,7 @@ const Title = styled.h3`
     align-self: flex-start;
     font-family: DesirasNonCommercial;
     color: #3c7380;
+    letter-spacing: 1.10px;
 `;
 
 const MainInfo = styled.p`
@@ -64,6 +74,7 @@ const MainInfo = styled.p`
     display: flex;
     align-self: flex-start;
     letter-spacing: 1.25px;
+    text-align:justify;
     `;
 const DetailsInfo = styled.p`
     color: black;

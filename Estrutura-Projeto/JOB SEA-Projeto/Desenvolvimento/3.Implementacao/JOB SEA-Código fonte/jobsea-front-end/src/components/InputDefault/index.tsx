@@ -8,9 +8,10 @@ interface InputProps {
   placeholder: string;
   icon?: React.ComponentType<IconProps>;
   newValue: (arg0:string) => void;
+  style?: object;
 }
 
-const InputDefault: React.FC<InputProps> = ({ icon: Icon, name, placeholder, newValue }) => {
+const InputDefault: React.FC<InputProps> = ({ icon: Icon, name, placeholder, newValue,style }) => {
   const [value, setValue] = useState("")
 
   const handleValueChange = (value: string) => {
@@ -19,12 +20,13 @@ const InputDefault: React.FC<InputProps> = ({ icon: Icon, name, placeholder, new
   return (
     <>
       <TextField
+      
         variant="outlined"
         value={value}
         name={name}
         placeholder={placeholder}
         className="input"
-        style={{ minWidth: "100%" }}
+        style={style}
         onChange={(e) => { 
           handleValueChange(e.target.value); 
           newValue(e.target.value)

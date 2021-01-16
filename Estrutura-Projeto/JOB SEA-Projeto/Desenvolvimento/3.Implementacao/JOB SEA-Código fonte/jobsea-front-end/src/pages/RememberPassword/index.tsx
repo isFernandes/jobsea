@@ -27,7 +27,7 @@ function EsqueceuSenha() {
         <p className="paragraph">
           Insira seu email de cadastro para enviarmos a chave de recuperação!
         </p>
-        <InputDefault name="email-remember" placeholder="E-MAIL" newValue={changeEmail}/>
+        <InputDefault style={{minWidth:"90%"}} name="email-remember" placeholder="E-MAIL" newValue={changeEmail}/>
         <ButtonArea className="input-style">
           <ButtonOutlined text="Lembrei a senha" />
           <ButtonContained text="Enviar" />

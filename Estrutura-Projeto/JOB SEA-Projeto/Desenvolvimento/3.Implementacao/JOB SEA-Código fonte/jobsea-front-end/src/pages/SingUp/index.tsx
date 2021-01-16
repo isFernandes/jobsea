@@ -43,15 +43,15 @@ function SingUp() {
       <Container>
         <ImageBackground src={imgBack} />
         <Content>
-          <h4>CADASTRE-SE</h4>
+          <TitleSingup>CADASTRE-SE</TitleSingup>
           <Form onSubmit={createUser} >
-            <InputDefault name="nome" placeholder="Nome" newValue={changeName} />
-            <InputDefault name="sobrenome" placeholder="Sobrenome" newValue={makeNothing} />
-            <InputDefault name="email" placeholder="E-Mail" newValue={changeEmail} />
-            <InputDefault name="senha" placeholder="Senha" newValue={changeSenha} />
-            <InputDefault name="confirmeSenha" placeholder="Confirme a Senha" newValue={makeNothing} />
-            <InputDefault name="Data" placeholder="Data de Nascimento" newValue={makeNothing} />
-            <div style={{ display: "flex", flex: 1, maxHeight: "60px", flexDirection: "column", minWidth: "100%" }}>
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="nome" placeholder="Nome" newValue={changeName} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="sobrenome" placeholder="Sobrenome" newValue={makeNothing} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="email" placeholder="E-Mail" newValue={changeEmail} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="senha" placeholder="Senha" newValue={changeSenha} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="confirmeSenha" placeholder="Confirme a Senha" newValue={makeNothing} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="Data" placeholder="Data de Nascimento" newValue={makeNothing} />
+            <div style={{ display: "flex", flex: 1, maxHeight: "60px", flexDirection: "column", minWidth: "90%" }}>
               <InputLabel id="select-label" className="inputLabel">
                 Função
          </InputLabel>
@@ -62,7 +62,7 @@ function SingUp() {
               >
                 <MenuItem value="" disabled>
                   Função
-            </MenuItem>
+                </MenuItem>
                 <MenuItem value={1}>Realizar projetos</MenuItem>
                 <MenuItem value={2}>Publicar projetos</MenuItem>
                 <MenuItem value={3}>Realizar e publicar projetos</MenuItem>
@@ -118,7 +118,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-margin-top: 80px;
+  max-height:50%;
+  margin-top: 80px;
   flex: 5;
   flex-direction: column;
   display: flex;
@@ -147,3 +148,11 @@ const ButtonArea = styled.div`
   justify-content: center;
   align-self: flex-end;
 `;
+
+const TitleSingup = styled.h4`
+  font-family: DesirasNonCommercial;
+  color:#fff;
+  margin-top:25px;
+  margin-bottom:10px;
+`
+

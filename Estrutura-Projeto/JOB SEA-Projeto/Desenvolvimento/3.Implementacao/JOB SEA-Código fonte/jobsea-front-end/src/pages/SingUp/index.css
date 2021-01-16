@@ -13,6 +13,7 @@
 }
 #select-label{
     color: #ffffff;
+    margin-bottom: 5px;
 }
 .inputLabel{
     align-self: flex-start;

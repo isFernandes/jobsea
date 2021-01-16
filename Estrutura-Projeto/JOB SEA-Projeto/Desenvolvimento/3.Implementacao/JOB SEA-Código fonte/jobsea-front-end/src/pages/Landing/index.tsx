@@ -13,12 +13,12 @@ import { Button } from "@material-ui/core";
 function Landing() {
   return (
     <>
-      <Navbar placeholder="Busque um freelancer ..." route=" " title="J O B S E A" >
+      <Navbar placeholder="Busque um freelancer ..." route=" " title="JOB SEA" >
         <Children>
           <Link to="/">
             <Button variant="text" style={{ color: "white" }}>
               LOGIN
-              </Button>
+            </Button>
           </Link>
           <Link to="/singup">
             <Button
@@ -133,9 +133,11 @@ const FooterText = styled.p`
     word-wrap: break-word;
 `;
 const Children = styled.div`
+align-self:flex-end;
   display: flex;
   flex: 1;
   justify-content: space-around;
+  max-width: 300px;
   @media(max-width: 1000px){
     flex-direction: column;
   }

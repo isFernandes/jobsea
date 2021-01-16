@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Crew from "../../components/Crew";
 import Navbar from '../../components/Navbar';
+import { crewData } from "../../helpers/crewsHelpers"
 
 function Feed() {
   return (
@@ -10,8 +11,9 @@ function Feed() {
       <Content>
         <Filtros></Filtros>
         <MainFeed>
-          <Crew />
-          <Crew />
+          {crewData.map((crew) => (
+            <Crew key={crew.id} projectTitle={crew.projectTitle} projectInfo={crew.projectInfo} projectDetails={crew.projectDetails} projectOwner={crew.projectOwner} />
+          ))}
         </MainFeed>
         <Mural></Mural>
       </Content>

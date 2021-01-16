@@ -170,10 +170,10 @@ export const TextPage = styled.a`
 export const TitleNavbar = styled.a`
   color: #fff;
   text-align: center;
-  font-size:24px;
+  font-size:36px;
   font-family: PerkyAreaDemoRegular, Verdana;
   text-decoration: none;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
   @media(max-width: 900px){
     display: none;
   } 
