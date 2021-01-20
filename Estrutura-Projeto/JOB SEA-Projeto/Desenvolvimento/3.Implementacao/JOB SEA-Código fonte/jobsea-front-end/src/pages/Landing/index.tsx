@@ -8,6 +8,7 @@ import Navbar from "../../components/Navbar";
 import imgBackground from "../../assets/HomePage/fundo@72x.png";
 import logotipeMain from "../../assets/HomePage/logotipo-caravela@72x.png";
 import { Button } from "@material-ui/core";
+// import lemeRodape from "../../assets/HomePage/leme-rodape@72x.png";
 
 function Landing() {
   return (
@@ -40,7 +41,7 @@ function Landing() {
           <Logo src={logotipeMain} />
           <ButtonArea>
             <button className="create-job" >
-              <Link style={{ color: '#fff' }} className="linking-button" to="/remember-password">
+              <Link style={{ color: '#fff' }} className="linking-button" to="/esqueceu-senha">
                 PUBLIQUE UM JOB
           </Link>
             </button>
