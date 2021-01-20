@@ -1,18 +1,31 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Crew from "../../components/Crew";
+import CrewCard, { Crew } from "../../components/Crew";
 import Navbar from '../../components/Navbar';
-import { crewData } from "../../helpers/crewsHelpers"
+import { getAllProject } from "../../services/projectServices";
 
 function Feed() {
+  const [crews, setCrews] = useState([]);
+
+  useEffect(() => {
+    const getProjects = async () => {
+      const response = await getAllProject();
+
+      setCrews(response.data);
+    };
+
+    getProjects();
+  }, []);
+
   return (
     <Container>
       <Navbar route="feed" placeholder="Busque um freelancer ..." title="JOB SEA" />
       <Content>
         <Filtros></Filtros>
         <MainFeed>
-          {crewData.map((crew) => (
-            <Crew key={crew.id} projectTitle={crew.projectTitle} projectInfo={crew.projectInfo} projectDetails={crew.projectDetails} projectOwner={crew.projectOwner} />
+          {crews.map((crew: Crew) => (
+            <CrewCard key={crew.id} crew={crew} />
           ))}
         </MainFeed>
         <Mural></Mural>
