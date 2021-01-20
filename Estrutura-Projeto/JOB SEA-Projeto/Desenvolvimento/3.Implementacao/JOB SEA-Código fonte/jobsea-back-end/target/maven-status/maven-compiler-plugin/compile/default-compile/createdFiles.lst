@@ -1,3 +1,4 @@
+br\com\jobsea\CorsConfig.class
 br\com\jobsea\projeto\ProjetoRepository.class
 br\com\jobsea\projeto\ProjetoController.class
 br\com\jobsea\projeto\ProjetoServiceImpl.class

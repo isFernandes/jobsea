@@ -1,5 +1,5 @@
 //commom imports
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import styled from "styled-components";
 //imports material icons
 import EditIcon from '@material-ui/icons/Edit';
@@ -9,10 +9,10 @@ import avatarFake from "../../assets/Profile/defaultAvatar@72x.png";
 import imgBackground from "../../assets/HomePage/fundo@72x.png";
 import Navbar from "../../components/Navbar";
 import InputDefault from "../../components/InputDefault";
-import { getAll /*getUser*/ } from "../../services/api";
+import { getUser } from "../../services/userServices";
 
 const Profile: React.FC = () => {
-  // const [user, setUser] = useState([]);
+  const [user, setUser] = useState();
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -24,21 +24,24 @@ const Profile: React.FC = () => {
     },
   };
 
-  const usuarioTeste = async () => {
-    const cep = await getAll();
-    // const cep = await getAll().then(function () {
-    //   console.log("deu certo");
-    // }).catch(function (error) {
-    //   console.log(error);
-    // });
+  useEffect(() => {
+    const getProjects = async () => {
+      const response = await getUser(62);
 
-    console.log(cep);
-  }
+      setUser(response.data);
+    };
 
+    getProjects();
+  }, [user]);
+
+  // const settingData = async ()=>{
+  //   const loggedUser = await getUser(62);
+  //   console.log(loggedUser)
+  // }
 
   const editImage = () => {
-    alert("click funcionou");
-    usuarioTeste();
+    alert("touch for update a picture");
+    // settingData()
   };
 
   // const saveForm = () => {
@@ -53,7 +56,7 @@ const Profile: React.FC = () => {
     "GitHub",
     "Docker",
     "Spring",
-    "Odeio Java",
+    "Java",
     "C#",
     "Python",
   ];
@@ -66,9 +69,6 @@ const Profile: React.FC = () => {
     "Pacifico",
     "Tranquilo",
     "Calmo",
-    "Odeia Java",
-    "Ama typescript",
-    "Jogador de r6",
   ];
 
   const [techs, setTechs] = useState<string[]>([]);
@@ -104,10 +104,9 @@ const Profile: React.FC = () => {
               <EditIcon fontSize="small" />
             </Icon>
           </Header>
-          <UserData>
+          {user ? (<UserData>{`${user.nome}, ${user.email}`}</UserData>) : (<UserData>
             nome_Usuario, equipes_participantes, techs_Conhecidas
-          </UserData>
-
+          </UserData>)}
           <div className="align ">
             <InputLabel id="label">Habilidades Extras</InputLabel>
             <Select
@@ -159,7 +158,7 @@ const Profile: React.FC = () => {
               ))}
             </Select>
           </div>
-          <InputDefault style={{width: "450px", height:"80px"}} name="bio" placeholder="Bio" newValue={changeBio} />
+          <InputDefault style={{ width: "450px", height: "80px" }} name="bio" placeholder="Bio" newValue={changeBio} />
           <Button className="button">Salvar Dados</Button>
         </Content>
       </Container>
@@ -188,7 +187,8 @@ const ImageBackground = styled.img`
 `;
 
 const Content = styled.div`
-max-width:40%;
+  border-radius: 10px;
+  max-width:40%;
   display: flex;
   background-color: #3c7380;
   opacity: 0.9;
@@ -201,7 +201,6 @@ max-width:40%;
   justify-self:center;
   margin-top: 30px;
   @media (max-width: 700px){
-    margin-left: 30%;
     max-width: 80%;
     padding: 0 25px;
     

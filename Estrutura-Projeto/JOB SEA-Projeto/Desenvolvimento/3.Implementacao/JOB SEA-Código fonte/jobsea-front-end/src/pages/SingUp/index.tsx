@@ -7,7 +7,7 @@ import "./index.css";
 import imgBack from "../../assets/Signup/bg mar barco_Prancheta 1.png";
 import Navbar from "../../components/Navbar";
 import InputDefault from "../../components/InputDefault";
-import { createUser as create } from "../../services/api";
+import { createUser as create } from "../../services/userServices";
 
 function SingUp() {
   const [nome, setNome] = useState("")
@@ -23,15 +23,15 @@ function SingUp() {
   const changeSenha = (senha: string) => {
     setSenha(senha);
   }
-  const makeNothing = (value: string) => {
-    console.log("faz nada", value)
-  }
+
   const createUser = async (e: FormEvent) => {
     e.preventDefault();
     try {
-
-      const createdUser = await create(nome, senha, email);
+      const createdUser = await create(email, nome, senha);
       console.log(createdUser);
+      setNome("")
+      setEmail("")
+      setSenha("")
     } catch (error) {
       console.log(error);
     }
@@ -46,15 +46,12 @@ function SingUp() {
           <TitleSingup>CADASTRE-SE</TitleSingup>
           <Form onSubmit={createUser} >
             <InputDefault style={{ flex: 1, minWidth: "90%" }} name="nome" placeholder="Nome" newValue={changeName} />
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="sobrenome" placeholder="Sobrenome" newValue={makeNothing} />
             <InputDefault style={{ flex: 1, minWidth: "90%" }} name="email" placeholder="E-Mail" newValue={changeEmail} />
             <InputDefault style={{ flex: 1, minWidth: "90%" }} name="senha" placeholder="Senha" newValue={changeSenha} />
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="confirmeSenha" placeholder="Confirme a Senha" newValue={makeNothing} />
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="Data" placeholder="Data de Nascimento" newValue={makeNothing} />
             <div style={{ display: "flex", flex: 1, maxHeight: "60px", flexDirection: "column", minWidth: "90%" }}>
               <InputLabel id="select-label" className="inputLabel">
                 Função
-         </InputLabel>
+              </InputLabel>
               <Select
                 className="select"
                 labelId="select-label"
@@ -83,9 +80,9 @@ function SingUp() {
                 type="submit"
                 onClick={createUser}
               >
-                <Link style={{ color: "#3c7380", fontWeight: "bold" }} to="/feed">
+                {/* <Link style={{ color: "#3c7380", fontWeight: "bold" }} > */}
                   Pronto
-             </Link>
+                {/* </Link> */}
               </button>
             </ButtonArea>
           </Form>
@@ -118,7 +115,8 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  max-height:50%;
+  max-height:80vh;
+  border-radius:10px;
   margin-top: 80px;
   flex: 5;
   flex-direction: column;
