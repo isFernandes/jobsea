@@ -1,37 +1,46 @@
 import React from "react";
 import styled from "styled-components";
+import {getProject} from "../../services/projectServices"
 
+export interface Crew{
+  id:number;
+  nome: string;
+  descricao: string;
+  tagTecnicas: string;
+  tempoEstimado:string;
+}
 interface CrewsProp{
-  projectTitle: string,
-  projectInfo: string,
-  projectDetails: string,
-  projectOwner: string,
-
+  crew: Crew;
 }
 
-const Crew:React.FC<CrewsProp> = (CrewData)=> {
+const handleClick = async (id: number)=>{
+  const projeto = await getProject(id);
+  console.log(projeto);
+  console.log(`id: ${id}`);
+}
 
+const CrewCard:React.FC<CrewsProp> = ({crew})=> {
   return (
-    <Container>
+    <Container onClick={()=>handleClick(crew.id)}>
       <Content>
         <Title>
-          {CrewData.projectTitle}
+          {crew.nome}
         </Title>
         <MainInfo >
-          {CrewData.projectInfo}
+          {crew.descricao}
         </MainInfo>
         <DetailsInfo >
-          {CrewData.projectDetails} 
+          {crew.tagTecnicas} 
         </DetailsInfo>
         <OwnerInfo >
-          Cliente - {CrewData.projectOwner}
+          Cliente - {crew.tempoEstimado}
         </OwnerInfo>
       </Content>
     </Container>
   );
 }
 
-export default Crew;
+export default CrewCard;
 
 const Container = styled.div`
   margin-top:25px;
