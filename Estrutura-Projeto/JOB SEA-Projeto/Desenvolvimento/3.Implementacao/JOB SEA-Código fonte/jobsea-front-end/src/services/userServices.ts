@@ -3,8 +3,8 @@ import api from "./api";
 
 //ROTAS DE USUARIO
 //cria usuario
-export const createUser = (email: string, nome: string, senha: string) => {
-    return api.post("/api/usuario/", {data:{email, nome, senha}});
+export const createUser = (data:object) => {
+    return api.post("/api/usuario/", data);
 }
 //atualiza usuario
 export const updateUser = (id: number, newData: object) => {

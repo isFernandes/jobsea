@@ -1,42 +1,48 @@
 import React from "react";
 import styled from "styled-components";
-import {getProject} from "../../services/projectServices"
+import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom";
 
-export interface Crew{
-  id:number;
+import { setProject } from "../../rootReducer/ducks/project";
+
+export interface Crew {
+  id: number;
   nome: string;
   descricao: string;
   tagTecnicas: string;
-  tempoEstimado:string;
+  tempoEstimado: string;
 }
-interface CrewsProp{
+interface CrewsProp {
   crew: Crew;
 }
 
-const handleClick = async (id: number)=>{
-  const projeto = await getProject(id);
-  console.log(projeto);
-  console.log(`id: ${id}`);
-}
 
-const CrewCard:React.FC<CrewsProp> = ({crew})=> {
+const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
+  const dispatch = useDispatch();
+  const handleClick = async (id: number) => {
+    await dispatch(setProject(id));
+
+  }
+
   return (
-    <Container onClick={()=>handleClick(crew.id)}>
-      <Content>
-        <Title>
-          {crew.nome}
-        </Title>
-        <MainInfo >
-          {crew.descricao}
-        </MainInfo>
-        <DetailsInfo >
-          {crew.tagTecnicas} 
-        </DetailsInfo>
-        <OwnerInfo >
-          Cliente - {crew.tempoEstimado}
-        </OwnerInfo>
-      </Content>
-    </Container>
+    <Link to="/sub-project" style={{alignSelf: "center"}}>
+      <Container onClick={() => handleClick(crew.id)}>
+        <Content>
+          <Title>
+            {crew.nome}
+          </Title>
+          <MainInfo >
+            {crew.descricao}
+          </MainInfo>
+          <DetailsInfo >
+            {crew.tagTecnicas}
+          </DetailsInfo>
+          <OwnerInfo >
+            Cliente - {crew.tempoEstimado}
+          </OwnerInfo>
+        </Content>
+      </Container>
+    </Link>
   );
 }
 
@@ -101,28 +107,3 @@ const OwnerInfo = styled.p`
     align-self: flex-start;
     letter-spacing: 1.25px;
 `;
-
-// const CrewRanting = styled.div`
-//   display: flex;
-//   flex:0.2;
-//   align-items: center;
-//   justify-content: center;
-//   background-color: #8ca686;
-//   border-radius: 700%;
-//   padding: 15px;
-// `;
-
-// const CrewInfo = styled.div`
-// padding: 6px 6px 6px 10px; 
-//   display: flex;
-//   align-self: center;
-//   flex-wrap: wrap;
-//   flex: 3;
-// `;
-
-// const CrewValue = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex: 1;
-// `;

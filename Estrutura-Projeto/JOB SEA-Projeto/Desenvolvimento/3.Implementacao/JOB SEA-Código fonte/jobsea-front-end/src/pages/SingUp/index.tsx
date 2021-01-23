@@ -27,7 +27,10 @@ function SingUp() {
   const createUser = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const createdUser = await create(email, nome, senha);
+      const newUser ={
+        email, nome, senha
+      }
+      const createdUser = await create(newUser);
       console.log(createdUser);
       setNome("")
       setEmail("")

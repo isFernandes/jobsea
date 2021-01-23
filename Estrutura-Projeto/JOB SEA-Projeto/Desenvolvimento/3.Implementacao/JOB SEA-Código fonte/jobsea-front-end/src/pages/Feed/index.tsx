@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import CrewCard, { Crew } from "../../components/Crew";
 import Navbar from '../../components/Navbar';
 import { getAllProject } from "../../services/projectServices";
@@ -25,7 +26,7 @@ function Feed() {
         <Filtros></Filtros>
         <MainFeed>
           {crews.map((crew: Crew) => (
-            <CrewCard key={crew.id} crew={crew} />
+              <CrewCard key={crew.id} crew={crew} />
           ))}
         </MainFeed>
         <Mural></Mural>
