@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.lang.NonNull;
 
@@ -57,6 +58,9 @@ public class Usuario {
 	@Column
 	@ApiModelProperty(value = "Nome da imagem")
 	private String imgNome;
+
+	@OneToOne(mappedBy = "usuario")
+	private TokenAuthUser tokenAuthUser;
 
 	@Column
 	private Boolean ativo = true;
@@ -147,6 +151,14 @@ public class Usuario {
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public TokenAuthUser getTokenAuthUser() {
+		return tokenAuthUser;
+	}
+
+	public void setTokenAuthUser(TokenAuthUser tokenAuthUser) {
+		this.tokenAuthUser = tokenAuthUser;
 	}
 
 }

@@ -20,16 +20,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario cadastrarUsuario(Usuario model) {
 		if (model.getId() != null) {
 			return atualizarUsuario(model);
-		} else {
+		} else if (null == usuarioRepo.findByEmailEquals(model.getEmail())) {
 			return usuarioRepo.save(model);
 		}
+		return usuarioRepo.save(model);
 	}
 
 	@Override
 	public Usuario atualizarUsuario(Usuario model) {
 		Optional<Usuario> usuarioOp = usuarioRepo.findById(model.getId());
 
-		if (!usuarioOp.isPresent()) {
+		if (!usuarioOp.isPresent() && null != usuarioRepo.findByEmailEquals(model.getEmail())) {
 			return null;
 		}
 
@@ -47,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuario.setAtivo(model.getAtivo());
 		usuario.setImgNome(model.getImgNome());
 		usuario.setImgUrl(model.getImgUrl());
-		
+
 		return usuarioRepo.save(usuario);
 	}
 
