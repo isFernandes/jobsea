@@ -6,22 +6,21 @@ export { }
 
 interface ButtonProps {
     text: string,
+    routeParams?: any,
+    type?: any,
 }
 
 /**
  * 
  * @param param0 Botao vazado
  */
-const ButtonOutlined: React.FC<ButtonProps> = ({ text }) => {
+const ButtonOutlined: React.FC<ButtonProps> = ({ text, routeParams, type }) => {
     return (
-        <>
-            <button id="remember" >
-                <Link style={{ color: '#fff' }} className="linking-button" to="/">
-                    {text}
-                </Link>
-            </button>
-
-        </>
+        <button id="buttonOutlined" type={type} >
+            <Link style={{ color: '#fff' }} className="linking-button" to={routeParams}>
+                {text}
+            </Link>
+        </button>
     )
 }
 

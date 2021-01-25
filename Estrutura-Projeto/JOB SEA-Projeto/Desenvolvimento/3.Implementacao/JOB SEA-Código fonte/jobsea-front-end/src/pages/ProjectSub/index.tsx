@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { } from "react";
+import React, { FormEvent } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 import Navbar from '../../components/Navbar';
+import ButtonOutlined from "../../components/ButtonOutlined"
+import ButtonContained from "../../components/ButtonContained"
 
 
 interface RootState {
@@ -13,13 +15,16 @@ interface RootState {
 function ProjectSub() {
   const selectedProject = useSelector((state: RootState) => state.project.selectedProject);
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+  }
+
   return (
     <Container>
       <Navbar route="feed" placeholder="Busque um freelancer ..." title="JOB SEA" />
       <Content>
-        {console.log(selectedProject)}
         <MainFeed>
-          <InfoCard>
+          <InfoCard onSubmit={handleSubmit}>
             <Title>
               {selectedProject !== null ? selectedProject.nome : "Nome do Projeto"}
             </Title>
@@ -32,6 +37,10 @@ function ProjectSub() {
             <OwnerInfo >
               Cliente - {selectedProject !== null ? selectedProject.tempoEstimado : "Tempo Estimado"}
             </OwnerInfo>
+            <ButtonsArea>
+              <ButtonOutlined text="Cancelar" routeParams="/feed" />
+              <ButtonContained text="Candidatar-se" type="submit" />
+            </ButtonsArea>
           </InfoCard>
         </MainFeed>
         <Mural></Mural>
@@ -74,7 +83,16 @@ const Mural = styled.div`
   max-height: 200px;
   max-width: 300px;
 `;
-const InfoCard = styled.div`
+
+const ButtonsArea = styled.div`
+  margin-top:80px;
+  background-color: black;
+  flex: 1;
+  max-height: 200px;
+  max-width: 300px;
+`;
+
+const InfoCard = styled.form`
   display: flex;
   flex-direction:column;
   align-items: flex-start;

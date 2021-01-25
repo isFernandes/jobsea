@@ -7,7 +7,7 @@ interface InputProps {
   name?: string;
   placeholder: string;
   icon?: React.ComponentType<IconProps>;
-  newValue: (arg0:string) => void;
+  newValue: (arg0:any) => void;
   style?: object;
 }
 
