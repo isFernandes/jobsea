@@ -1,49 +1,82 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FormEvent } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
 import Navbar from '../../components/Navbar';
 import ButtonOutlined from "../../components/ButtonOutlined"
 import ButtonContained from "../../components/ButtonContained"
+import { subProject } from "../../services/userServices";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import { logout } from "../../rootReducer/ducks/auth";
 
+function ProjectSub(props:any) {
+  const selectedProject = useSelector((state: RootStateOrAny) => state.project.selectedProject);
+  const user = useSelector((state: RootStateOrAny) => state.auth.user);
 
-interface RootState {
-  project: any;
-  selectedProject: object;
-}
-function ProjectSub() {
-  const selectedProject = useSelector((state: RootState) => state.project.selectedProject);
-
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      await subProject(user.id, selectedProject.project._id);
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  
+  const dispatch=useDispatch()
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout())
+      props.history.push("/login");
+      window.location.reload();
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <Container>
-      <Navbar route="feed" placeholder="Busque um freelancer ..." title="JOB SEA" />
+      <Navbar route="feed" placeholder="Busque um freelancer ..." title="JOB SEA" >
+        
+      <Children>
+          <Link to="/create-project">
+            <Button variant="text" style={{ color: "white" }} >
+              Criar projeto
+          </Button>
+          </Link>
+          <Button variant="text" style={{ color: "white" }} onClick={() => {
+            handleLogout();
+          }}>
+            Log Out
+          </Button>
+        </Children>
+      </Navbar>
       <Content>
         <MainFeed>
           <InfoCard onSubmit={handleSubmit}>
             <Title>
-              {selectedProject !== null ? selectedProject.nome : "Nome do Projeto"}
+              {selectedProject !== null ? selectedProject.project.nome : "Nome do Projeto"}
             </Title>
             <MainInfo >
-              {selectedProject !== null ? selectedProject.descricao : "Descricao do Projeto"}
+              {selectedProject !== null ? selectedProject.project.descricao : "Descricao do Projeto"}
             </MainInfo>
             <DetailsInfo >
-              {selectedProject !== null ? selectedProject.tagTecnicas : "Técnicas do Projeto"}
+              {selectedProject !== null ? selectedProject.project.tagTecnicas : "Técnicas do Projeto"}
             </DetailsInfo>
             <OwnerInfo >
-              Cliente - {selectedProject !== null ? selectedProject.tempoEstimado : "Tempo Estimado"}
+              Cliente - {selectedProject !== null ? selectedProject.owner : "Owner do Projeto"}
             </OwnerInfo>
             <ButtonsArea>
-              <ButtonOutlined text="Cancelar" routeParams="/feed" />
-              <ButtonContained text="Candidatar-se" type="submit" />
+              <ButtonOutlined text="Cancelar" routeParams="/feed" type="text" />
+              <ButtonContained text="Candidatar-se" type="submit" /> 
             </ButtonsArea>
           </InfoCard>
         </MainFeed>
-        <Mural></Mural>
       </Content>
     </Container>
   );
@@ -71,25 +104,31 @@ const MainFeed = styled.div`
   flex-direction: column;
   align-self:center;
   justify-content:flex-start;
-  align-items:flex-end;
+  align-items:center;
   background-color: transparent;
   height: 90%;
 `;
 
-const Mural = styled.div`
-  margin-top:80px;
-  background-color: black;
+const Children = styled.form`
+  align-self:center;
+  display: flex;
   flex: 1;
-  max-height: 200px;
+  justify-content: center;
   max-width: 300px;
+  @media(max-width: 1000px){
+    flex-direction: column;
+  }
 `;
 
 const ButtonsArea = styled.div`
-  margin-top:80px;
-  background-color: black;
+  margin:80px 15px 0 0;
+  background-color: transparent;
+  display:flex;
   flex: 1;
-  max-height: 200px;
-  max-width: 300px;
+  justify-content:space-between;
+  max-height: 40px;
+  width: 80%;
+  align-self: flex-end;
 `;
 
 const InfoCard = styled.form`
@@ -103,7 +142,7 @@ const InfoCard = styled.form`
   height: 75%;
   width: 600px;
   margin-right:40px;
-  align-self: flex-end;
+  align-self: center;
   border-radius: 3px;
   padding: 0 0 0 10px;
 `;

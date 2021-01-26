@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { setProject } from "../../rootReducer/ducks/project";
 
 export interface Crew {
-  id: number;
+  _id: string;
   nome: string;
   descricao: string;
   tagTecnicas: string;
@@ -19,14 +19,15 @@ interface CrewsProp {
 
 const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
   const dispatch = useDispatch();
-  const handleClick = async (id: number) => {
+  const handleClick = async (id: string) => {
+
     await dispatch(setProject(id));
 
   }
 
   return (
     <Link to="/sub-project" style={{alignSelf: "center"}}>
-      <Container onClick={() => handleClick(crew.id)}>
+      <Container onClick={() => handleClick(crew._id)}>
         <Content>
           <Title>
             {crew.nome}
@@ -38,7 +39,7 @@ const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
             {crew.tagTecnicas}
           </DetailsInfo>
           <OwnerInfo >
-            Cliente - {crew.tempoEstimado}
+            Dias para realizacao: {crew.tempoEstimado}
           </OwnerInfo>
         </Content>
       </Container>

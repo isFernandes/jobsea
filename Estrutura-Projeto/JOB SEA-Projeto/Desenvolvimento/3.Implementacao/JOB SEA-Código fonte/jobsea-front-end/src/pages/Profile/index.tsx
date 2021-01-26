@@ -3,15 +3,18 @@ import React, { FormEvent, useState, useEffect } from "react";
 import styled from "styled-components";
 //imports material icons
 import EditIcon from '@material-ui/icons/Edit';
-import { Input, InputLabel, MenuItem, Select, Chip } from "@material-ui/core";//extern archives
+import { Input, InputLabel, MenuItem, Select, Chip, Button } from "@material-ui/core";//extern archives
 import "./index.css";
 import avatarFake from "../../assets/Profile/defaultAvatar@72x.png";
 import imgBackground from "../../assets/HomePage/fundo@72x.png";
 import Navbar from "../../components/Navbar";
 import InputDefault from "../../components/InputDefault";
 import { getUser } from "../../services/userServices";
+import { Link } from "react-router-dom";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { logout } from "../../rootReducer/ducks/auth";
 
-const Profile: React.FC = () => {
+function Profile(props:any){
   const [user, setUser] = useState();
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -26,8 +29,9 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const response = await getUser(62);
-
+      const usuario: any = localStorage.getItem("user")
+      const userId = usuario.id;
+      const response = await getUser(userId)
       setUser(response.data);
     };
 
@@ -92,9 +96,38 @@ const Profile: React.FC = () => {
     setBio(bio);
   }
 
+  const dispatch=useDispatch()
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout())
+      props.history.push("/login");
+      window.location.reload();
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const loggedUser = useSelector((state: RootStateOrAny) => state.auth.user);
+
   return (
     <>
-      <Navbar route="profile" placeholder="Busque um freelancer ..." title="Dashboard" />
+      <Navbar route="profile" placeholder="Busque um freelancer ..." title="Dashboard" >
+
+        <Children>
+          <Link to="/create-project">
+            <Button variant="text" style={{ color: "white" }} >
+              Criar projeto
+          </Button>
+          </Link>
+          <Button variant="text" style={{ color: "white" }} onClick={() => {
+            handleLogout();
+          }}>
+            Log Out
+          </Button>
+        </Children>
+      </Navbar>
       <Container>
         <ImageBackground src={imgBackground} />
         <Content onSubmit={handleDataSubmit}>
@@ -104,8 +137,8 @@ const Profile: React.FC = () => {
               <EditIcon fontSize="small" />
             </Icon>
           </Header>
-          {user ? (<UserData>{`${user.nome}, ${user.email}`}</UserData>) : (<UserData>
-            nome_Usuario, equipes_participantes, techs_Conhecidas
+          {loggedUser ? (<UserData>{`${loggedUser.nome}, ${loggedUser.email}`}</UserData>) : (<UserData>
+            nome_Usuario, email_Usuario
           </UserData>)}
           <div className="align ">
             <InputLabel id="label">Habilidades Extras</InputLabel>
@@ -159,7 +192,7 @@ const Profile: React.FC = () => {
             </Select>
           </div>
           <InputDefault style={{ width: "450px", height: "80px" }} name="bio" placeholder="Bio" newValue={changeBio} />
-          <Button className="button">Salvar Dados</Button>
+          <ButtonSave className="button">Salvar Dados</ButtonSave>
         </Content>
       </Container>
 
@@ -168,6 +201,17 @@ const Profile: React.FC = () => {
 };
 
 export default Profile;
+
+const Children = styled.form`
+  align-self:center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  max-width: 300px;
+  @media(max-width: 1000px){
+    flex-direction: column;
+  }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -243,7 +287,7 @@ const Icon = styled.div`
   border: #d0d0d0 solid 2px;
 `;
 
-const Button = styled.button`
+const ButtonSave = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;

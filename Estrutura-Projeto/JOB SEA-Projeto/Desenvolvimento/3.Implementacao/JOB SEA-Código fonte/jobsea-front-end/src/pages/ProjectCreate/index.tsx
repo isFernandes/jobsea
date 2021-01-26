@@ -1,20 +1,24 @@
 import React, { FormEvent, useState } from "react";
 import styled from "styled-components";
-import { Link, Redirect } from "react-router-dom";
-import { InputLabel, Select, MenuItem, Input, Chip } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { InputLabel, Select, MenuItem, Input, Chip, Button } from "@material-ui/core";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
 import "./index.css";
 import imgBack from "../../assets/Signup/bg mar barco_Prancheta 1.png";
 import Navbar from "../../components/Navbar";
 import InputDefault from "../../components/InputDefault";
 import { createProject } from "../../services/projectServices";
+import { logout } from "../../rootReducer/ducks/auth";
 
-function ProjectCreate() {
+function ProjectCreate(props:any) {
   const [nome, setNome] = useState("");
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [descricao, setDescricao] = useState("");
   const [tempoEstimado, setTempoEstimado] = useState("");
-  const [verba, setVerba] = useState("");
+  const [verba, setVerba] = useState(0);
+
+  const user = useSelector((state: RootStateOrAny) => state.auth.user);
 
   const handleSelectSelectedTechs = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedTechs(event.target.value as string[]);
@@ -39,7 +43,7 @@ function ProjectCreate() {
     " GitHub",
     " Docker",
     " Spring",
-    " Odeio Java",
+    " Java",
     " C#",
     " Python",
   ];
@@ -51,47 +55,71 @@ function ProjectCreate() {
   const changeDescricao = (value: string) => {
     setDescricao(value);
   }
-  const changeVerba = (value: string) => {
+  const changeVerba = (value: any) => {
     setVerba(value);
-    console.log(verba)
   }
   const changeTime = (value: string) => {
     setTempoEstimado(value);
   }
   const criaProjeto = async (e: FormEvent) => {
     e.preventDefault();
+    const tagTecnicas = selectedTechs.toString();
+    const newProject = {
+      nome,
+      descricao,
+      tempoEstimado,
+      verba,
+      tagTecnicas
+    }
     try {
-      const techs = selectedTechs.toString();
-      const newProject = {
-        nome,
-        descricao,
-        tempoEstimado,
-        // verba, 
-        techs
-      }
 
-      console.log(techs, selectedTechs)
-      const createdProject = await createProject(newProject);
-      console.log(createdProject);
+      const ownerId = user.id;
+      await createProject(ownerId, newProject);
       setDescricao("")
       setNome("")
       setTempoEstimado("")
-      setVerba("")
-      return <Redirect to="/feed" />
+      setVerba(0)
     } catch (error) {
       console.log(error);
     }
   }
 
+  
+  const dispatch=useDispatch()
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout())
+      props.history.push("/login");
+      window.location.reload();
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
-      <Navbar route="create-project" placeholder="Busque um freelancer ..." title="PROJETO" />
+      <Navbar route="create-project" placeholder="Busque um freelancer ..." title="PROJETO">
+        
+      <Children>
+          <Link to="/create-project">
+            <Button variant="text" style={{ color: "white" }} >
+              Criar projeto
+          </Button>
+          </Link>
+          <Button variant="text" style={{ color: "white" }} onClick={() => {
+            handleLogout();
+          }}>
+            Log Out
+          </Button>
+        </Children>
+      </Navbar>
       <Container>
         <ImageBackground src={imgBack} />
         <Content>
-          {/* <TitleSingup>CRIE SEU PROJETO</TitleSingup> */}
           <Form onSubmit={criaProjeto} >
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="nome" placeholder="Nome do Projeto" newValue={changeName} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="nome" value={nome} placeholder="Nome do Projeto" newValue={changeName} />
             <div className="align" style={{ minWidth: "90%" }}>
               <InputLabel id="label">CARACTERISTICAS TECNICAS</InputLabel>
               <Select
@@ -117,9 +145,26 @@ function ProjectCreate() {
                 ))}
               </Select>
             </div>
-            <InputDefault style={{ flex: 1, minWidth: "90%", height: "80px" }} name="sobrenome" placeholder="Descricao" newValue={changeDescricao} />
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="time" placeholder="Tempo estimado (em dias)" newValue={changeTime} />
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="senha" placeholder="Valor disponivel" newValue={changeVerba} />
+            <InputDefault 
+              style={{ flex: 1, minWidth: "90%", height: "80px" }} 
+              value={descricao} 
+              name="descricao" 
+              placeholder="Descricao" 
+              newValue={changeDescricao} 
+            />
+            <InputDefault 
+              style={{ flex: 1, minWidth: "90%" }}
+              name="time"
+              placeholder="Tempo estimado (em dias)" 
+              newValue={changeTime} 
+              value={tempoEstimado} />
+            <InputDefault 
+              style={{ flex: 1, minWidth: "90%" }}
+              name="verba"
+              type="number"
+              placeholder="Valor disponivel" 
+              newValue={changeVerba} 
+              value={verba} />
 
             <ButtonArea>
               <button
@@ -159,6 +204,18 @@ const Form = styled.form`
   width: 100%;
   z-index: 1;
 `;
+
+const Children = styled.form`
+  align-self:center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  max-width: 300px;
+  @media(max-width: 1000px){
+    flex-direction: column;
+  }
+`;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;

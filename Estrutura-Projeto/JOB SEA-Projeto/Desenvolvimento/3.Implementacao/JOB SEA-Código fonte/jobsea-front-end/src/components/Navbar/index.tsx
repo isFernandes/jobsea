@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IconButton, Menu, InputBase } from "@material-ui/core";
-// import MenuItem from "@material-ui/core/MenuItem";
 import MenuIcon from "@material-ui/icons/Menu";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import SearchIcon from "@material-ui/icons/Search";
 import styled from "styled-components";
 
@@ -37,12 +38,12 @@ const Navbar: React.FC<PropsNavBar> = ({ title, placeholder, route, children }) 
           <TextPage href={`/${route}`}>
             <ImgLogo src={IconPadrao} />
           </TextPage>
-          <TitleNavbar href="/">{title}</TitleNavbar>
+          <TitleNavbar href={`/${route}`}>{title}</TitleNavbar>
         </Title>
       </Section>
       <Section>
         <Pages>
-          <SearchInput>
+          {/* <SearchInput>
             <InputBase
               placeholder={placeholder}
               inputProps={{ "aria-label": "search" }}
@@ -50,7 +51,7 @@ const Navbar: React.FC<PropsNavBar> = ({ title, placeholder, route, children }) 
             <div >
               <SearchIcon style={{ color: "#C0C0C0" }} />
             </div>
-          </SearchInput>
+          </SearchInput> */}
           <Options >
             {children}
           </Options>
@@ -217,6 +218,8 @@ export const Options = styled.nav`
     width:100%;
   }
 `;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const SearchInput = styled.div`
   display: flex;
   background-color: #fff; 

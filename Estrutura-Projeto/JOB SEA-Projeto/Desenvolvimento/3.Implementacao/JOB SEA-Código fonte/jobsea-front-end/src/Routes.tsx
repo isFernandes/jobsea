@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 //external archives
-import Landing from "./pages/Landing";
+// import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import SignUp from "./pages/SingUp";
@@ -14,8 +14,7 @@ import ProjectSub from './pages/ProjectSub';
 function Routes() {
   return (
     <BrowserRouter>
-      <Route path="/" exact component={Landing} />
-      <Route path="/login" component={Login} />
+      <Route exact path={["/", "/login"]} component={Login} />
       <Route path="/feed" component={Feed} />
       <Route path="/singup" component={SignUp} />
       <Route path="/remember-password" component={RememberPassword} />
