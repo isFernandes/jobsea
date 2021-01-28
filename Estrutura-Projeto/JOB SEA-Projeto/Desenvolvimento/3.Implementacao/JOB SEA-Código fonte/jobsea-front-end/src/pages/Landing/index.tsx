@@ -124,7 +124,7 @@ const Logo = styled.img`
 `;
 
 const FooterText = styled.p`
-      font-family: DesirasNonCommercial;
+    font-family: DesirasNonCommercial;
     color: #ffffff;
     font-size: 24px;
     text-align: center;

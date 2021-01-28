@@ -9,6 +9,7 @@ import RememberPassword from "./pages/RememberPassword";
 import Profile from './pages/Profile';
 import ProjectCreate from './pages/ProjectCreate';
 import ProjectSub from './pages/ProjectSub';
+import UserProject from './pages/UserProject';
 
 //rotas de navegacoa
 function Routes() {
@@ -21,6 +22,7 @@ function Routes() {
       <Route path="/profile" component={Profile} />
       <Route path="/create-project" component={ProjectCreate} />
       <Route path="/sub-project" component={ProjectSub} />
+      <Route path="/user-projects" component={UserProject} />
     </BrowserRouter>
   );
 }

@@ -210,9 +210,10 @@ export const Options = styled.nav`
   flex:1;
   text-align: center;
   font-size:12px;
-  max-width: 60%;
+  max-width: 80%;
   font-family: 'Poppins', Verdana;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: flex-end;
   @media (max-width: 1001px){
     display: none;
     width:100%;

@@ -10,14 +10,15 @@ export interface Crew {
   nome: string;
   descricao: string;
   tagTecnicas: string;
-  tempoEstimado: string;
+  project_owner: any;
+  projects_subscribe: any;
 }
 interface CrewsProp {
   crew: Crew;
 }
 
 
-const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
+export const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
   const dispatch = useDispatch();
   const handleClick = async (id: string) => {
 
@@ -26,7 +27,7 @@ const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
   }
 
   return (
-    <Link to="/sub-project" style={{alignSelf: "center"}}>
+    <Link to="/sub-project" style={{ alignSelf: "center" }}>
       <Container onClick={() => handleClick(crew._id)}>
         <Content>
           <Title>
@@ -39,7 +40,7 @@ const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
             {crew.tagTecnicas}
           </DetailsInfo>
           <OwnerInfo >
-            Dias para realizacao: {crew.tempoEstimado}
+            Cliente - {crew.project_owner[0].nome}
           </OwnerInfo>
         </Content>
       </Container>
@@ -47,7 +48,59 @@ const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
   );
 }
 
-export default CrewCard;
+export const SubCrewCardUser: React.FC<CrewsProp> = ({ crew }) => {
+  const dispatch = useDispatch();
+  const handleClick = async (id: string) => {
+
+    await dispatch(setProject(id));
+
+  }
+
+  return (
+    <Link to="/sub-project" style={{ alignSelf: "center" }}>
+      <Container onClick={() => handleClick(crew._id)}>
+        <Content>
+          <Title>
+            {crew.nome}
+          </Title>
+          <MainInfo >
+            {crew.descricao}
+          </MainInfo>
+          <DetailsInfo >
+            {crew.tagTecnicas}
+          </DetailsInfo>
+        </Content>
+      </Container>
+    </Link>
+  );
+}
+
+
+export const CrewCardUser: React.FC<CrewsProp> = ({ crew }) => {
+  const dispatch = useDispatch();
+  const handleClick = async (id: string) => {
+
+    await dispatch(setProject(id));
+
+  }
+
+  return (
+    <Container onClick={() => handleClick(crew._id)}>
+      <Content>
+        <Title>
+          {crew.nome}
+        </Title>
+        <MainInfo >
+          {crew.descricao}
+        </MainInfo>
+        <DetailsInfo >
+          {crew.tagTecnicas}
+        </DetailsInfo>
+      </Content>
+    </Container>
+  );
+}
+
 
 const Container = styled.div`
   margin-top:25px;

@@ -19,6 +19,11 @@ export const getProjectsFromUser = (id: string) => {
     return api.get(`/api/projeto/all/${id}`, { headers: authHeader() });
 }
 
+//busca projetos de um usuario
+export const getSubsFromUser = (id: string) => {
+    return api.get(`/api/projeto/subs/all/${id}`, { headers: authHeader() });
+}
+
 //busca 1 projeto
 export const getProject = (id: string) => {
     return api.get(`/api/projeto/${id}`, { headers: authHeader() });

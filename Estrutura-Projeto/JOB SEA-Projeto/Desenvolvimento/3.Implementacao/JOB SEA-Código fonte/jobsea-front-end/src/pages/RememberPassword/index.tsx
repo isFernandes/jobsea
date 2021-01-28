@@ -29,7 +29,7 @@ function EsqueceuSenha() {
         </p>
         <InputDefault style={{minWidth:"90%"}} name="email-remember" placeholder="E-MAIL" newValue={changeEmail}/>
         <ButtonArea className="input-style">
-          <ButtonOutlined text="Lembrei a senha" />
+          <ButtonOutlined text="Lembrei a senha" routeParams="/"/>
           <ButtonContained text="Enviar" />
         </ButtonArea>
       </Form>

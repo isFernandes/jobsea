@@ -10,6 +10,7 @@ import Navbar from "../../components/Navbar";
 import InputDefault from "../../components/InputDefault";
 import { createProject } from "../../services/projectServices";
 import { logout } from "../../rootReducer/ducks/auth";
+import Message from "../../components/Message";
 
 function ProjectCreate(props:any) {
   const [nome, setNome] = useState("");
@@ -19,7 +20,8 @@ function ProjectCreate(props:any) {
   const [verba, setVerba] = useState(0);
 
   const user = useSelector((state: RootStateOrAny) => state.auth.user);
-
+  const { message } = useSelector((state: RootStateOrAny) => state.message);
+  
   const handleSelectSelectedTechs = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedTechs(event.target.value as string[]);
   };
@@ -83,16 +85,16 @@ function ProjectCreate(props:any) {
       console.log(error);
     }
   }
-
+  
   
   const dispatch=useDispatch()
-
+  
   const handleLogout = async () => {
     try {
       await dispatch(logout())
       props.history.push("/login");
       window.location.reload();
-
+      
     } catch (error) {
       console.log(error)
     }
@@ -133,11 +135,11 @@ function ProjectCreate(props:any) {
                   <div style={{ display: "flex", flexWrap: 'wrap' }}>
                     {(selected as string[]).map((value) => (
                       <Chip key={value} label={value} />
-                    ))}
+                      ))}
                   </div>
                 )}
                 MenuProps={MenuProps}
-              >
+                >
                 {selectedTechsFakeData.map((tech) => (
                   <MenuItem key={tech} value={tech} >
                     {tech}
@@ -151,7 +153,7 @@ function ProjectCreate(props:any) {
               name="descricao" 
               placeholder="Descricao" 
               newValue={changeDescricao} 
-            />
+              />
             <InputDefault 
               style={{ flex: 1, minWidth: "90%" }}
               name="time"
@@ -170,7 +172,7 @@ function ProjectCreate(props:any) {
               <button
                 className="back-button"
                 color="primary"
-              >
+                >
                 <Link className="linking-text" to="/">
                   Voltar
              </Link>
@@ -181,10 +183,11 @@ function ProjectCreate(props:any) {
                 type="submit"
                 onClick={criaProjeto}
                 style={{ color: "#3c7380", fontWeight: "bold" }}
-              >
+                >
                 Pronto
                 </button>
             </ButtonArea>
+            {message ? Message(message) : ""}
           </Form>
         </Content>
       </Container>
@@ -204,13 +207,12 @@ const Form = styled.form`
   width: 100%;
   z-index: 1;
 `;
-
 const Children = styled.form`
-  align-self:center;
+  align-self:flex-end;
   display: flex;
   flex: 1;
-  justify-content: center;
-  max-width: 300px;
+  justify-content: space-between;
+  min-width:100%;
   @media(max-width: 1000px){
     flex-direction: column;
   }

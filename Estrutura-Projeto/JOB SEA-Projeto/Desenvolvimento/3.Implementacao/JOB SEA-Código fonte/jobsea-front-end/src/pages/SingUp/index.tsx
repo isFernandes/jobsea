@@ -2,19 +2,22 @@ import React, { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 // import { InputLabel, Select, MenuItem } from "@material-ui/core";
-import {useDispatch} from "react-redux";
+import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 
 import "./index.css";
 import imgBack from "../../assets/Signup/bg mar barco_Prancheta 1.png";
 import Navbar from "../../components/Navbar";
 import InputDefault from "../../components/InputDefault";
 import {register} from "../../rootReducer/ducks/auth";
+import Message from "../../components/Message";
 
 function SingUp(props:any) {
   const dispatch = useDispatch()
   const [nome, setNome] = useState("")
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
+  
+  const { message } = useSelector((state: RootStateOrAny) => state.message);
 
   const changeName = (nome: string) => {
     setNome(nome);
@@ -49,8 +52,8 @@ function SingUp(props:any) {
           <TitleSingup>CADASTRE-SE</TitleSingup>
           <Form onSubmit={createUser} >
             <InputDefault style={{ flex: 1, minWidth: "90%" }} name="nome" placeholder="Nome" newValue={changeName} />
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="email" placeholder="E-Mail" newValue={changeEmail} />
-            <InputDefault style={{ flex: 1, minWidth: "90%" }} name="senha" placeholder="Senha" newValue={changeSenha} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} type="email" name="email" placeholder="E-Mail" newValue={changeEmail} />
+            <InputDefault style={{ flex: 1, minWidth: "90%" }} type="password" name="senha" placeholder="Senha" newValue={changeSenha} />
             
             <ButtonArea>
               <button
@@ -73,6 +76,7 @@ function SingUp(props:any) {
               </button>
             </ButtonArea>
           </Form>
+          {message ? Message(message) : ""}
         </Content>
       </Container>
     </>

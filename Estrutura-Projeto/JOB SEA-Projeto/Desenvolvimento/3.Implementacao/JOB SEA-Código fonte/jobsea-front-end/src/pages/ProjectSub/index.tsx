@@ -10,23 +10,26 @@ import { subProject } from "../../services/userServices";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { logout } from "../../rootReducer/ducks/auth";
+import Message from "../../components/Message";
 
-function ProjectSub(props:any) {
+function ProjectSub(props: any) {
   const selectedProject = useSelector((state: RootStateOrAny) => state.project.selectedProject);
+  const { message } = useSelector((state: RootStateOrAny) => state.message);
+  
   const user = useSelector((state: RootStateOrAny) => state.auth.user);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       await subProject(user.id, selectedProject.project._id);
-      
+
     } catch (error) {
       console.log(error)
     }
   }
 
-  
-  const dispatch=useDispatch()
+
+  const dispatch = useDispatch()
 
   const handleLogout = async () => {
     try {
@@ -42,8 +45,8 @@ function ProjectSub(props:any) {
   return (
     <Container>
       <Navbar route="feed" placeholder="Busque um freelancer ..." title="JOB SEA" >
-        
-      <Children>
+
+        <Children>
           <Link to="/create-project">
             <Button variant="text" style={{ color: "white" }} >
               Criar projeto
@@ -71,9 +74,10 @@ function ProjectSub(props:any) {
             <OwnerInfo >
               Cliente - {selectedProject !== null ? selectedProject.owner : "Owner do Projeto"}
             </OwnerInfo>
+            {message ? Message(message) : ""}
             <ButtonsArea>
               <ButtonOutlined text="Cancelar" routeParams="/feed" type="text" />
-              <ButtonContained text="Candidatar-se" type="submit" /> 
+              <ButtonContained text="Candidatar-se" type="submit" />
             </ButtonsArea>
           </InfoCard>
         </MainFeed>
@@ -110,11 +114,11 @@ const MainFeed = styled.div`
 `;
 
 const Children = styled.form`
-  align-self:center;
+  align-self:flex-end;
   display: flex;
   flex: 1;
-  justify-content: center;
-  max-width: 300px;
+  justify-content: space-between;
+  min-width:100%;
   @media(max-width: 1000px){
     flex-direction: column;
   }

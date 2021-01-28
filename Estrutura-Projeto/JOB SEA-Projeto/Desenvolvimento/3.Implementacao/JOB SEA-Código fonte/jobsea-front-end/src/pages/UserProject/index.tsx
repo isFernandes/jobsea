@@ -1,27 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { Crew,CrewCard } from "../../components/Crew";
+import { Crew, CrewCardUser, SubCrewCardUser } from "../../components/Crew";
 import Navbar from '../../components/Navbar';
-import { getAllProject } from "../../services/projectServices";
+import { getProjectsFromUser, getSubsFromUser } from "../../services/projectServices";
 import { logout } from "../../rootReducer/ducks/auth";
 import { Link } from "react-router-dom";
+import Message from "../../components/Message";
 
-function Feed(props: any) {
+function UserProject(props: any) {
   const dispatch = useDispatch();
   const [crews, setCrews] = useState([]);
+  const [subProject, setSubProjects] = useState([]);
+
+  const { user } = useSelector((state: RootStateOrAny) => state.auth);
 
   useEffect(() => {
     const getProjects = async () => {
-      const response = await getAllProject();
+      const response = await getProjectsFromUser(user.id);
 
       setCrews(response.data);
     };
 
+    const getSubProjectForUser = async () => {
+      const response:any = await getSubsFromUser(user.id);
+      console.log(response)
+      setSubProjects(response.data[0].projects_subscribe);
+    };
+
     getProjects();
+    getSubProjectForUser();
   }, []);
 
   const handleLogout = async () => {
@@ -35,19 +46,15 @@ function Feed(props: any) {
     }
   }
 
-  
+
   return (
     <Container>
       <Navbar route="feed" placeholder="Busque um freelancer ..." title="JOB SEA">
         <Children>
+          
           <Link to="/create-project">
             <Button variant="text" style={{ color: "white" }} >
               Criar projeto
-          </Button>
-          </Link>
-          <Link to="/user-projects">
-            <Button variant="text" style={{ color: "white" }} >
-              Seus projetos
           </Button>
           </Link>
           <Link to="/profile">
@@ -63,22 +70,42 @@ function Feed(props: any) {
         </Children>
       </Navbar>
       <Content>
-        {/* <Filtros></Filtros> */}
         <MainFeed>
-          {crews.map((crew: Crew) => (
-            <CrewCard key={crew._id} crew={crew} />
-          ))}
+          <Title>Projetos Criados:</Title>
+          {crews ? 
+            crews.map((crew: Crew) => (
+              <CrewCardUser key={crew._id} crew={crew} />
+            ))
+           : Message("Voce ainda não possui nenhum projeto")}
+           <Title>Projetos Inscritos:</Title>
+           {console.log(subProject)}
+           {subProject ? 
+            subProject.map((crew: Crew) => (
+              <SubCrewCardUser key={crew._id} crew={crew} />
+            ))
+           : Message("Voce ainda não esta inscrito em nenhum projeto")} 
+
         </MainFeed>
       </Content>
     </Container>
   );
 }
 
-export default Feed;
+export default UserProject;
 
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
+`;
+
+const Title = styled.h2`
+    display: flex;
+    font-weight:bold;
+    align-self: center;
+    font-family: DesirasNonCommercial;
+    color: #3c7380;
+    letter-spacing: 1.10px;
+    margin-top:45px;
 `;
 
 const Children = styled.form`

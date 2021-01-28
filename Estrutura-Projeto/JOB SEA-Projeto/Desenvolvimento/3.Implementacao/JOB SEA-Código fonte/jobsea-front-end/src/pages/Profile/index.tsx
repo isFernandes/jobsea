@@ -13,6 +13,7 @@ import { getUser } from "../../services/userServices";
 import { Link } from "react-router-dom";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { logout } from "../../rootReducer/ducks/auth";
+import Message from "../../components/Message";
 
 function Profile(props:any){
   const [user, setUser] = useState();
@@ -27,6 +28,8 @@ function Profile(props:any){
     },
   };
 
+  const { message } = useSelector((state: RootStateOrAny) => state.message);
+  
   useEffect(() => {
     const getProjects = async () => {
       const usuario: any = localStorage.getItem("user")
@@ -34,7 +37,7 @@ function Profile(props:any){
       const response = await getUser(userId)
       setUser(response.data);
     };
-
+    
     getProjects();
   }, [user]);
 
@@ -42,7 +45,7 @@ function Profile(props:any){
   //   const loggedUser = await getUser(62);
   //   console.log(loggedUser)
   // }
-
+  
   const editImage = () => {
     alert("touch for update a picture");
     // settingData()
@@ -64,7 +67,7 @@ function Profile(props:any){
     "C#",
     "Python",
   ];
-
+  
   const SoftFakeData = [
     "Trabalho em equipe",
     "Terra redonda",
@@ -74,11 +77,11 @@ function Profile(props:any){
     "Tranquilo",
     "Calmo",
   ];
-
+  
   const [techs, setTechs] = useState<string[]>([]);
   const [softs, setSofts] = useState<string[]>([]);
   const [bio, setBio] = useState("");
-
+  
   const handleSelectTechs = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTechs(event.target.value as string[]);
   };
@@ -97,20 +100,20 @@ function Profile(props:any){
   }
 
   const dispatch=useDispatch()
-
+  
   const handleLogout = async () => {
     try {
       await dispatch(logout())
       props.history.push("/login");
       window.location.reload();
-
+      
     } catch (error) {
       console.log(error)
     }
   }
 
   const loggedUser = useSelector((state: RootStateOrAny) => state.auth.user);
-
+  
   return (
     <>
       <Navbar route="profile" placeholder="Busque um freelancer ..." title="Dashboard" >
@@ -153,11 +156,11 @@ function Profile(props:any){
                 <div style={{ display: "flex", flexWrap: 'wrap' }}>
                   {(selected as string[]).map((value) => (
                     <Chip key={value} label={value} style={{ margin: "2px" }} />
-                  ))}
+                    ))}
                 </div>
               )}
               MenuProps={MenuProps}
-            >
+              >
               {SoftFakeData.map((soft) => (
                 <MenuItem key={soft} value={soft} >
                   {soft}
@@ -179,7 +182,7 @@ function Profile(props:any){
                 <div style={{ display: "flex", flexWrap: 'wrap' }}>
                   {(selected as string[]).map((value) => (
                     <Chip key={value} label={value} />
-                  ))}
+                    ))}
                 </div>
               )}
               MenuProps={MenuProps}
@@ -192,6 +195,7 @@ function Profile(props:any){
             </Select>
           </div>
           <InputDefault style={{ width: "450px", height: "80px" }} name="bio" placeholder="Bio" newValue={changeBio} />
+          {message ? Message(message) : ""}
           <ButtonSave className="button">Salvar Dados</ButtonSave>
         </Content>
       </Container>
@@ -203,11 +207,11 @@ function Profile(props:any){
 export default Profile;
 
 const Children = styled.form`
-  align-self:center;
+  align-self:flex-end;
   display: flex;
   flex: 1;
-  justify-content: center;
-  max-width: 300px;
+  justify-content: space-between;
+  min-width:100%;
   @media(max-width: 1000px){
     flex-direction: column;
   }
