@@ -18,7 +18,7 @@ exports.signup = (req, res) => {
       return;
     }
 
-    res.send({ message: "User was registered successfully!" });
+    res.send({ message: "Usuario cadastrado com sucesso!" });
   });
 };
 
@@ -32,7 +32,7 @@ exports.signin = (req, res) => {
     }
 
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(404).send({ message: "Usuario não encontrado." });
     }
 
     var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
@@ -40,7 +40,7 @@ exports.signin = (req, res) => {
     if (!passwordIsValid) {
       return res.status(401).send({
         accessToken: null,
-        message: "Invalid Password!",
+        message: "Senha ou usuário inválidos!",
       });
     }
 

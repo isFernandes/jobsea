@@ -17,6 +17,11 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getAllProjectUsers
   );
+  app.get(
+    "/api/projeto/subs/all/:id",
+    [authJwt.verifyToken],
+    controller.getAllSubProjectUsers
+  );
 
   app.get("/api/projeto/:id", [authJwt.verifyToken], controller.getProject);
 

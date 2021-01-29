@@ -9,7 +9,7 @@ module.exports = {
       const users = await User.find({ ativo: true }, SELECT);
       return res.status(200).json(users);
     } catch (error) {
-      return res.status(200).json(error);
+      return res.status(500).json({message:`Ocorreu um erro, tente mais tarde!`});
     }
   },
 
@@ -19,7 +19,7 @@ module.exports = {
       const users = await User.findOne({ _id: id }, SELECT);
       return res.status(200).json(users);
     } catch (error) {
-      return res.status(200).json(error);
+      return res.status(500).json({message:`Ocorreu um erro, tente mais tarde!`});
     }
   },
 
@@ -29,21 +29,24 @@ module.exports = {
 
     try {
       const project = await Projeto.findById({ _id: projectId });
-      console.log(project);
+
       if (project) {
         const user = await User.findById({ _id: id });
+        console.log(project.ownerId, user._id);
+        if(project.ownerId.equals(user._id)){
+          return res.status(400).json({message:`Impossivel se inscrever no seu proprio projeto!`})
+        }
+
         if (!user.projects.includes(projectId)) {
           user.projects.push(project);
           await user.save();
-          console.log(user)
-          console.log(project)
-          return res.status(200).json(user);
+          return res.status(200).json({message:`Inscrito com sucesso!`});
         }
 
-        return res.status(400).json({message:`Já inscrito no projeto`})
+        return res.status(400).json({message:`Voce já está cadastrado em : ${project.nome}`})
       }
     } catch (error) {
-      return res.status(200).json(error);
+      return res.status(500).json({message: `Ocorreu um erro, tente mais tarde`});
     }
   },
 
@@ -102,11 +105,11 @@ module.exports = {
           techsSkills: updateUser.techsSkills,
         }
       );
-
+      
       const updatedUser = await User.findById({ _id: id }, SELECT);
-      return res.status(200).json(updatedUser);
+      return res.status(200).json({message:`Usuario atualizado com sucesso!`, user:updatedUser});
     } catch (error) {
-      return res.status(200).json(error);
+      return res.status(500).json({message:`Ocorreu um erro, tente mais tarde!`});
     }
   },
 
@@ -116,7 +119,7 @@ module.exports = {
       await User.findOneAndUpdate({ _id: id }, { ativo: false });
       return res.status(200).json({ message: `Usuario deletado com sucesso` });
     } catch (error) {
-      return res.status(200).json(error);
+      return res.status(500).json({message:`Ocorreu um erro, tente mais tarde!`});
     }
   },
   async reactivarUser(req, res) {
@@ -125,7 +128,7 @@ module.exports = {
       await User.findOneAndUpdate({ _id: id }, { ativo: true });
       return res.status(200).json({ message: `Usuario reativado com sucesso` });
     } catch (error) {
-      return res.status(200).json(error);
+      return res.status(500).json({message:`Ocorreu um erro, tente mais tarde!`});
     }
   },
 };

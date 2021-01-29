@@ -1,14 +1,26 @@
 const db = require("../models");
 const User = db.user;
 const Projeto = db.project;
+const mongoose = require("mongoose")
 
 module.exports = {
   async getAllProject(req, res) {
     try {
-      const projects = await Projeto.find({});
+      const projects = await Projeto.aggregate([
+        {
+          $lookup: {
+            from: "usuarios",
+            localField: "ownerId",
+            foreignField: "_id",
+            as: "project_owner",
+          },
+        },
+      ]);
       return res.status(200).json(projects);
     } catch (error) {
-      return res.status(200).json(error);
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
     }
   },
 
@@ -18,7 +30,36 @@ module.exports = {
       const projects = await Projeto.find({ ownerId: id });
       return res.status(200).json(projects);
     } catch (error) {
-      return res.status(200).json(error);
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
+    }
+  },
+
+  async getAllSubProjectUsers(req, res) {
+    const { id } = req.params;
+    try {
+      const user = await User.find({ _id: id });
+      const newId = user[0]._id;
+      console.log(newId)
+
+      const subProject = await User.aggregate([
+        { $match: { _id: newId } },
+        {
+          $lookup: {
+            from: "projetos",
+            localField: "projects",
+            foreignField: "_id",
+            as: "projects_subscribe",
+          },
+        },
+      ]);
+      return res.status(200).json(subProject);
+    } catch (error) {
+      console.log(error)
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
     }
   },
 
@@ -27,9 +68,11 @@ module.exports = {
     try {
       const project = await Projeto.findById({ _id: id });
       const owner = await User.findById({ _id: project.ownerId });
-      return res.status(200).json({project: project, owner: owner.nome});
+      return res.status(200).json({ project: project, owner: owner.nome });
     } catch (error) {
-      return res.status(200).json(error);
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
     }
   },
 
@@ -47,10 +90,12 @@ module.exports = {
         verba,
         ownerId,
       };
-      const createdProject = await Projeto.create(newProject);
-      return res.status(200).json(createdProject);
+      await Projeto.create(newProject);
+      return res.status(200).json({ message: `Projeto criado com sucesso!` });
     } catch (error) {
-      return res.status(200).json(error);
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
     }
   },
   async updateProject(req, res) {
@@ -95,7 +140,7 @@ module.exports = {
     if (ownerId) {
       updateProject.ownerId = ownerId;
     } else {
-      return res.status(500).json({message:"Estamos com algum problema"});
+      return res.status(500).json({ message: "Estamos com algum problema" });
     }
     try {
       const updatedProject = await Projeto.findOneAndUpdate(
@@ -108,9 +153,11 @@ module.exports = {
           tempoEstimado: updateProject.tempoEstimado,
         }
       );
-      return res.status(200).json(updatedProject);
+      return res.status(200).json({ message: `Atualizado com sucesso!` });
     } catch (error) {
-      return res.status(200).json(error);
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
     }
   },
 
@@ -122,21 +169,21 @@ module.exports = {
         .status(200)
         .json({ message: `Projeto reativado com sucesso!` });
     } catch (error) {
-      return res.status(200).json(error);
-    }
-  },
-  
-  async deleteProject(req, res) {
-    const { id } = req.params;
-    try {
-      await Projeto.findOneAndUpdate(
-        { _id: id },
-        { ativo: false }
-      );
-      return res.status(200).json({ message: `Projeto deletado com sucesso!` });
-    } catch (error) {
-      return res.status(200).json(error);
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
     }
   },
 
+  async deleteProject(req, res) {
+    const { id } = req.params;
+    try {
+      await Projeto.findOneAndUpdate({ _id: id }, { ativo: false });
+      return res.status(200).json({ message: `Projeto deletado com sucesso!` });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: `Ocorreu um erro, tente mais tarde!` });
+    }
+  },
 };
