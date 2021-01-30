@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FormEvent } from "react";
+import React from "react";
 import styled from "styled-components";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
 import Navbar from '../../components/Navbar';
 import ButtonOutlined from "../../components/ButtonOutlined"
 import ButtonContained from "../../components/ButtonContained"
-import { subProject } from "../../services/userServices";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { logout } from "../../rootReducer/ducks/auth";
 import Message from "../../components/Message";
+import { subscribeProject } from "../../rootReducer/ducks/user";
 
 function ProjectSub(props: any) {
   const selectedProject = useSelector((state: RootStateOrAny) => state.project.selectedProject);
@@ -18,11 +18,11 @@ function ProjectSub(props: any) {
   
   const user = useSelector((state: RootStateOrAny) => state.auth.user);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
     try {
-      await subProject(user.id, selectedProject.project._id);
-
+      console.log(user.id, selectedProject.project._id)
+      dispatch(subscribeProject(user.id, selectedProject.project._id));
     } catch (error) {
       console.log(error)
     }
@@ -52,6 +52,11 @@ function ProjectSub(props: any) {
               Criar projeto
           </Button>
           </Link>
+          <Link to="/user-projects">
+            <Button variant="text" style={{ color: "white" }} >
+              Seus projetos
+            </Button>
+          </Link>
           <Button variant="text" style={{ color: "white" }} onClick={() => {
             handleLogout();
           }}>
@@ -74,12 +79,14 @@ function ProjectSub(props: any) {
             <OwnerInfo >
               Cliente - {selectedProject !== null ? selectedProject.owner : "Owner do Projeto"}
             </OwnerInfo>
-            {message ? Message(message) : ""}
             <ButtonsArea>
               <ButtonOutlined text="Cancelar" routeParams="/feed" type="text" />
-              <ButtonContained text="Candidatar-se" type="submit" />
+              <ButtonContained onClick={()=>(
+                handleSubmit()
+                )} text="Candidatar-se" type="submit" />
             </ButtonsArea>
           </InfoCard>
+          {message ? Message(message) : ""}
         </MainFeed>
       </Content>
     </Container>
@@ -125,7 +132,7 @@ const Children = styled.form`
 `;
 
 const ButtonsArea = styled.div`
-  margin:80px 15px 0 0;
+  margin:0 15px 0 0;
   background-color: transparent;
   display:flex;
   flex: 1;
@@ -143,12 +150,15 @@ const InfoCard = styled.form`
   border: 0.5px solid #d2dbdd;
   box-shadow: 3px 4px 4px #c7c4c4;
   padding:0;
-  height: 75%;
+  min-height: 70%;
+  max-height: 85%;
   width: 600px;
   margin-right:40px;
   align-self: center;
   border-radius: 3px;
-  padding: 0 0 0 10px;
+  padding: 0 10px 0 10px;
+  z-index:0;
+  flex:1;
 `;
 
 const Title = styled.h1`
@@ -191,4 +201,5 @@ const OwnerInfo = styled.p`
     align-self: flex-start;
     letter-spacing: 1.25px;
     font-weight:700;
+    margin-bottom:15px;
 `;

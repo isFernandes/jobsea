@@ -14,9 +14,15 @@ import { Link } from "react-router-dom";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { logout } from "../../rootReducer/ducks/auth";
 import Message from "../../components/Message";
+import { updateProfile } from "../../rootReducer/ducks/user";
+
 
 function Profile(props:any){
   const [user, setUser] = useState();
+  const [techs, setTechs] = useState<string[]>([]);
+  const [softs, setSofts] = useState<string[]>([]);
+  const [bio, setBio] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -29,6 +35,7 @@ function Profile(props:any){
   };
 
   const { message } = useSelector((state: RootStateOrAny) => state.message);
+  const loggedUser = useSelector((state: RootStateOrAny) => state.auth.user);
   
   useEffect(() => {
     const getProjects = async () => {
@@ -46,10 +53,19 @@ function Profile(props:any){
   //   console.log(loggedUser)
   // }
   
-  const editImage = () => {
-    alert("touch for update a picture");
-    // settingData()
-  };
+  const getBase64Img = (event: any): void => {
+    var file = event.target.files[0];
+    var reader:any = new FileReader();
+    if(reader){    
+      reader.onloadend = function() {
+        if(reader.result){
+          setImgUrl(reader.result)
+        }
+        console.log('RESULT', reader.result)
+      }
+    }
+    reader.readAsDataURL(file);
+  }
 
   // const saveForm = () => {
   //   alert("Dados Salvos");
@@ -78,10 +94,6 @@ function Profile(props:any){
     "Calmo",
   ];
   
-  const [techs, setTechs] = useState<string[]>([]);
-  const [softs, setSofts] = useState<string[]>([]);
-  const [bio, setBio] = useState("");
-  
   const handleSelectTechs = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTechs(event.target.value as string[]);
   };
@@ -90,9 +102,21 @@ function Profile(props:any){
     setSofts(event.target.value as string[]);
   };
 
-  const handleDataSubmit = (e: FormEvent) => {
+  const handleDataSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
+    const techsSkills = techs.toString();
+    const softSkills = softs.toString();
+    const imgUrlBase = imgUrl.toString();
+    const newDataUser = {
+      techsSkills, softSkills, bio, imgUrlBase
+    }
+    try {
+      dispatch(updateProfile(loggedUser.id, newDataUser));
+      
+      setBio("")
+    } catch (error) {
+      Message("Ocorreu um erro")
+    }
     console.log(bio);
   }
   const changeBio = (bio: string) => {
@@ -111,18 +135,21 @@ function Profile(props:any){
       console.log(error)
     }
   }
-
-  const loggedUser = useSelector((state: RootStateOrAny) => state.auth.user);
   
   return (
     <>
-      <Navbar route="profile" placeholder="Busque um freelancer ..." title="Dashboard" >
+      <Navbar route="feed" placeholder="Busque um freelancer ..." title="Dashboard" >
 
         <Children>
           <Link to="/create-project">
             <Button variant="text" style={{ color: "white" }} >
               Criar projeto
           </Button>
+          </Link>
+          <Link to="/user-projects">
+            <Button variant="text" style={{ color: "white" }} >
+              Seus projetos
+            </Button>
           </Link>
           <Button variant="text" style={{ color: "white" }} onClick={() => {
             handleLogout();
@@ -135,10 +162,21 @@ function Profile(props:any){
         <ImageBackground src={imgBackground} />
         <Content onSubmit={handleDataSubmit}>
           <Header>
-            <Avatar src={avatarFake} />
-            <Icon className="icon" onClick={() => editImage()}>
-              <EditIcon fontSize="small" />
-            </Icon>
+            
+            <input
+              accept="image/*"
+              style={{ display: "none" }}
+              id="icon-button-file"
+              type="file"
+              name="imgUrl"
+              onChange={getBase64Img}
+            />
+            <label htmlFor="icon-button-file">
+              {imgUrl ? 
+              (<Avatar  src={imgUrl} alt="profile-img"/>)
+              : <Avatar  src={avatarFake} alt="profile-img"/> }
+            </label>
+            
           </Header>
           {loggedUser ? (<UserData>{`${loggedUser.nome}, ${loggedUser.email}`}</UserData>) : (<UserData>
             nome_Usuario, email_Usuario
@@ -194,7 +232,7 @@ function Profile(props:any){
               ))}
             </Select>
           </div>
-          <InputDefault style={{ width: "450px", height: "80px" }} name="bio" placeholder="Bio" newValue={changeBio} />
+          <InputDefault style={{ width: "80%", height: "80px" }} name="bio" placeholder="Bio" newValue={changeBio} />
           {message ? Message(message) : ""}
           <ButtonSave className="button">Salvar Dados</ButtonSave>
         </Content>
@@ -272,7 +310,7 @@ const Avatar = styled.img`
   border-radius: 400%;
   background-color: transparent;
   z-index: 1;
-  border: black solid 1px;
+  border: black solid .5px;
   width: 120px;
   height: 120px;
 `;

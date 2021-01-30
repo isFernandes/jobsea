@@ -19,9 +19,9 @@ function Login(props: any) {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const { isLoggedIn } = useSelector((state: RootStateOrAny) => state.auth);  
+  const { isLoggedIn } = useSelector((state: RootStateOrAny) => state.auth);
   const { message } = useSelector((state: RootStateOrAny) => state.message);
-  
+
   const changeEmail = (email: string) => {
     setEmail(email)
   }
@@ -29,47 +29,47 @@ function Login(props: any) {
     setPass(pass)
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
     const redirectFeed = () => {
-      console.log(isLoggedIn)
       if (isLoggedIn) {
         props.history.push("/feed");
         window.location.reload();
-        return <Redirect to="/feed"/>
+        return <Redirect to="/feed" />
       }
     }
 
     redirectFeed();
-  }, [isLoggedIn, props.history])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn])
   const handleSubmit = async () => {
     try {
       await dispatch(login(email, pass))
     } catch (error) {
       console.log(error)
     }
-    
+
   }
 
   return (
     <Container>
       <ImageBackground src={imgBackground} />
-    <div style={{display:"flex" , width:"90vw", justifyContent:"center"}}>
-      <Logo src={logotipeMain} />
-      <Form onSubmit={handleSubmit} >
-        <h1>Login</h1>
+      <Content>
+        <Logo src={logotipeMain} />
+        <Form onSubmit={handleSubmit} >
+          <h1>Login</h1>
 
-        <InputDefault style={{ minWidth: "90%", marginBottom: "15px", marginTop: "25px" }} name="email-login" placeholder="E-MAIL" type="email" newValue={changeEmail} />
-        <InputDefault style={{ minWidth: "90%", marginTop: "15px", marginBottom:"15px" }} name="password-login" placeholder="Senha" type="password" newValue={changePass} />
+          <InputDefault style={{ minWidth: "90%", marginBottom: "15px", marginTop: "25px" }} name="email-login" placeholder="E-MAIL" type="email" newValue={changeEmail} />
+          <InputDefault style={{ minWidth: "90%", marginTop: "15px", marginBottom: "15px" }} name="password-login" placeholder="Senha" type="password" newValue={changePass} />
           {message ? Message(message) : ""}
-        <ButtonArea id="buttonArea" className="input-style">
-          <ButtonOutlined text="Esqueci a senha" routeParams="/remember-password" />
-          <ButtonContained text="Enviar" type="submit" onClick={handleSubmit} />
-          {/* <button type="submit">Login</button> */}
-        </ButtonArea>
-        <Link to="/singup" style={{marginBottom: "10px", marginTop:"10px", fontSize:"20px", letterSpacing:"2px", textDecoration: "none", color:"white", fontFamily:"DesirasNonCommercial"}} >Cadastre-se</Link>
-      </Form>
-      </div>
+          <ButtonArea id="buttonArea" className="input-style">
+            <ButtonOutlined text="Esqueci a senha" routeParams="/remember-password" />
+            <ButtonContained text="Entrar" type="submit" onClick={handleSubmit} />
+           
+          </ButtonArea>
+          <Link to="/singup" style={{ marginBottom: "10px", marginTop: "10px", fontSize: "20px", letterSpacing: "2px", textDecoration: "none", color: "white", fontFamily: "DesirasNonCommercial" }} >Cadastre-se</Link>
+        </Form>
+      </Content>
       <FooterText>ENCONTRE SEU JOB NESSE MAR DE OPORTUNIDADES . . .</FooterText>
     </Container>
   );
@@ -96,6 +96,14 @@ const Container = styled.div`
   height: 100%;
    width: 100%;
    align-self: center;
+  `;
+const Content = styled.div`
+  display:flex;
+  width:90vw;
+  justify-content:center;
+  @media(max-width:700px){
+    flex-direction:column;
+  }
   `;
 
 const Logo = styled.img`

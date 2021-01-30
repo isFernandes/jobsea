@@ -10,6 +10,7 @@ import Navbar from "../../components/Navbar";
 import InputDefault from "../../components/InputDefault";
 import {register} from "../../rootReducer/ducks/auth";
 import Message from "../../components/Message";
+import { clearMessage } from "../../rootReducer/ducks/message";
 
 function SingUp(props:any) {
   const dispatch = useDispatch()
@@ -59,6 +60,9 @@ function SingUp(props:any) {
               <button
                 className="back-button"
                 color="primary"
+                onClick={()=>{
+                  dispatch(clearMessage())
+                }}
               >
                 <Link className="linking-text" to="/">
                   Voltar

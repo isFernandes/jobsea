@@ -17,6 +17,14 @@ interface CrewsProp {
   crew: Crew;
 }
 
+function filterDesc(desc:any) {
+  if (desc.length < 100) {
+    return desc;
+  }
+
+  return `${desc.substring(0, 97)}...`;
+}
+
 
 export const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
   const dispatch = useDispatch();
@@ -34,7 +42,7 @@ export const CrewCard: React.FC<CrewsProp> = ({ crew }) => {
             {crew.nome}
           </Title>
           <MainInfo >
-            {crew.descricao}
+            {filterDesc(crew.descricao)}
           </MainInfo>
           <DetailsInfo >
             {crew.tagTecnicas}
@@ -64,7 +72,7 @@ export const SubCrewCardUser: React.FC<CrewsProp> = ({ crew }) => {
             {crew.nome}
           </Title>
           <MainInfo >
-            {crew.descricao}
+            {filterDesc(crew.descricao)}
           </MainInfo>
           <DetailsInfo >
             {crew.tagTecnicas}
@@ -91,7 +99,7 @@ export const CrewCardUser: React.FC<CrewsProp> = ({ crew }) => {
           {crew.nome}
         </Title>
         <MainInfo >
-          {crew.descricao}
+            {filterDesc(crew.descricao)}
         </MainInfo>
         <DetailsInfo >
           {crew.tagTecnicas}

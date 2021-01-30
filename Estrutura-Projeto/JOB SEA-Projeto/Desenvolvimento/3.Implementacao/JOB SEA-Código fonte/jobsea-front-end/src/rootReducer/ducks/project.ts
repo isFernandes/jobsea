@@ -1,8 +1,10 @@
-import {getAllProject, getProject, getProjectsFromUser} from "../../services/projectServices";
+import { getAllProject, getProject, getProjectsFromUser, createProject } from "../../services/projectServices";
 //TYPES
 const SET_PROJECT = "SET_PROJECT";
 const SET_ALL_PROJECTS = "SET_ALL_PROJECTS";
 const SET_ALL_PROJECTS_USER = "SET_ALL_PROJECTS_USER";
+const CREATE_PROJECT = "CREATE_PROJECT";
+const SET_MESSAGE = "SET_MESSAGE";
 
 //REDUCER
 
@@ -12,24 +14,24 @@ const initialState = {
   selectedProject: null,
 };
 
-export default function (state = initialState, action:any) {
+export default function (state = initialState, action: any) {
   const { type, payload } = action;
 
   switch (type) {
     case SET_PROJECT:
       return {
         ...state,
-        selectedProject :payload,
+        selectedProject: payload,
       };
     case SET_ALL_PROJECTS:
       return {
         ...state,
-        allProjects:payload,
+        allProjects: payload,
       };
     case SET_ALL_PROJECTS_USER:
       return {
         ...state,
-        allProjectsUser:payload,
+        allProjectsUser: payload,
       };
 
     default:
@@ -38,17 +40,17 @@ export default function (state = initialState, action:any) {
 }
 
 //ACTIONS
-export const setProject = (id:string) => async (dispatch:any) => {
-  
+export const setProject = (id: string) => async (dispatch: any) => {
+
   return await getProject(id).then(
-    (response:any) => {
+    (response: any) => {
       dispatch({
         type: SET_PROJECT,
         payload: response.data,
       });
       return Promise.resolve();
     },
-    (error:any) => {
+    (error: any) => {
       const message =
         (error.response &&
           error.response.data &&
@@ -56,28 +58,28 @@ export const setProject = (id:string) => async (dispatch:any) => {
         error.message ||
         error.toString();
 
-        console.log(message);
+      console.log(message);
 
-      // dispatch({
-      //   type: SET_MESSAGE,
-      //   payload: message,
-      // });
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
 
       return Promise.reject();
     }
   );
 };
-export const setAllProject = () => (dispatch:any) => {
-  
+export const setAllProject = () => (dispatch: any) => {
+
   return getAllProject().then(
-    (response:any) => {
+    (response: any) => {
       dispatch({
         type: SET_ALL_PROJECTS,
         payload: response.data,
       });
       return Promise.resolve();
     },
-    (error:any) => {
+    (error: any) => {
       const message =
         (error.response &&
           error.response.data &&
@@ -85,23 +87,58 @@ export const setAllProject = () => (dispatch:any) => {
         error.message ||
         error.toString();
 
-        console.log(message);
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
 
       return Promise.reject();
     }
   );
 };
-export const setAllProjectsUsers = (id:string) => (dispatch:any) => {
-  
+
+export const projectCreate = (ownerId: string, newProject: object) => (dispatch: any) => {
+
+  return createProject(ownerId, newProject).then(
+    (response: any) => {
+      dispatch({
+        type: CREATE_PROJECT,
+        payload: response.data,
+      });
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: response.data.message,
+      });
+      return Promise.resolve();
+    },
+    (error: any) => {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      console.log(message);
+
+      return Promise.reject();
+    }
+  );
+};
+
+export const setAllProjectsUsers = (id: string) => (dispatch: any) => {
+
   return getProjectsFromUser(id).then(
-    (response:any) => {
+    (response: any) => {
       dispatch({
         type: SET_ALL_PROJECTS_USER,
         payload: response.data,
       });
       return Promise.resolve();
     },
-    (error:any) => {
+    (error: any) => {
       const message =
         (error.response &&
           error.response.data &&
@@ -109,7 +146,11 @@ export const setAllProjectsUsers = (id:string) => (dispatch:any) => {
         error.message ||
         error.toString();
 
-        console.log(message);
+      dispatch({
+        type: SET_MESSAGE,
+        payload: message,
+      });
+
 
       return Promise.reject();
     }

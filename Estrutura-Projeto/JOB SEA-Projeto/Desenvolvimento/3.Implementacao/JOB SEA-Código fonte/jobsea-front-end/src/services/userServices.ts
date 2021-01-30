@@ -16,7 +16,7 @@ export const getUser = (id: string) => {
 
 //atualiza usuario
 export const updateUser = (id: string, newData: any) => {
-    return api.put(`/api/usuario/${id}`, { nome: newData.nome, bioDescricao: newData.bioDescricao, email: newData.email, softSkills: newData.softSkills, techsSkills: newData.techsSkills }, {headers: authHeader()});
+    return api.put(`/api/usuario/${id}`, { nome: newData.nome, imgUrl:newData.imgUrlBase,  bioDescricao: newData.bioDescricao, email: newData.email, softSkills: newData.softSkills, techsSkills: newData.techsSkills }, {headers: authHeader()});
 }
 
 //inscreve usuario

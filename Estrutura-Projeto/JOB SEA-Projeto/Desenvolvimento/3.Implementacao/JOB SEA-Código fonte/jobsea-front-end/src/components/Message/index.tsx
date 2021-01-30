@@ -26,12 +26,14 @@ const Container = styled.div`
   width: 60%;
   height: 30px;
   margin: 7px;
+  max-width:600px;
   border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
   align-self: center;
   justify-self: center;
+  z-index:99;
 `;
 
 const TextMessage = styled.p`
